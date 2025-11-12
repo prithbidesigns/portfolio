@@ -29,7 +29,7 @@ const ResumeViewer = () => {
         <meta property="og:title" content="Resume - prithbidesigns" />
         <meta property="og:description" content="View and download Prithbi's professional resume showcasing skills, experience, and accomplishments in web development and design." />
         <meta property="og:image" content="%PUBLIC_URL%/img/og-resume.jpg" /> {/* Use a representative image */}
-        <meta property="og:url" content="https://portfolio-frontend-y9pr.onrender.com/resume" />
+        <meta property="og:url" content="https://prithbidesigns.vercel.app/resume" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Resume - prithbidesigns" />

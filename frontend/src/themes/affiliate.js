@@ -32,13 +32,13 @@ const Affiliate = () => {
         name="description"
         content="Discover a curated list of helpful resources, tools, and recommended products that prithbidesigns uses and trusts for web development and design."
       />
-      <link rel="canonical" href="https://portfolio-frontend-y9pr.onrender.com/helpful-resources" />
+      <link rel="canonical" href="https://prithbidesigns.vercel.app/helpful-resources" />
       <meta property="og:title" content="Helpful Resources & Tools - prithbidesigns" />
       <meta
         property="og:description"
         content="Discover a curated list of helpful resources, tools, and recommended products that prithbidesigns uses and trusts for web development and design."
       />
-      <meta property="og:url" content="https://portfolio-frontend-y9pr.onrender.com/helpful-resources" />
+      <meta property="og:url" content="https://prithbidesigns.vercel.app/helpful-resources" />
       <meta property="og:type" content="website" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content="Helpful Resources & Tools - prithbidesigns" />

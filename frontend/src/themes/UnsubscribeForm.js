@@ -12,7 +12,7 @@ const UnsubscribeForm = () => {
   // Define your logo and banner URLs here for consistency
   const LOGO_URL = "https://ik.imagekit.io/upzxi2yzb/tr:w-800,q-100,fo-auto/profile/Asset_4_ucSXtHMrz.svg";
   const BANNER_URL = "https://ik.imagekit.io/upzxi2yzb/tr:w-800,q-100,fo-auto/Mail%20Subscribe%20Assets/email-banner.png";
-  const WEBSITE_URL = "https://portfolio-frontend-y9pr.onrender.com/";
+  const WEBSITE_URL = "https://prithbidesigns.vercel.app/";
 
   // useEffect to read email from URL query parameter (common for unsubscribe links)
   useEffect(() => {

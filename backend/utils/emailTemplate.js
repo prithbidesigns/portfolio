@@ -10,7 +10,7 @@ const getAutoReplyTemplate = ({ name, email, message }) => {
     "https://ik.imagekit.io/upzxi2yzb/tr:w-50,q-80,fo-auto/Mail%20Subscribe%20Assets/w8eutv6bbtoafj80u7fj.png";
   const INSTAGRAM_URL = "https://www.instagram.com/infosuraj_/";
   const LINKEDIN_URL = "https://www.linkedin.com/in/prithbidesigns/";
-  const WEBSITE_URL = "https://portfolio-frontend-y9pr.onrender.com/";
+  const WEBSITE_URL = "https://prithbidesigns.vercel.app/";
   const SUPPORT_EMAIL = "support@prithbidesigns.com";
   const SUBSCRIBE_URL = `${WEBSITE_URL}subscribe?email=${encodeURIComponent(
     email || ""

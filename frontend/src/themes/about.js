@@ -40,13 +40,13 @@ const About = () => {
         name="keywords"
         content="About Prithbi, Web Developer Journey, Design Philosophy, Digital Experiences, prithbidesigns"
       />
-      <link rel="canonical" href="https://portfolio-frontend-y9pr.onrender.com/about" />
+      <link rel="canonical" href="https://prithbidesigns.vercel.app/about" />
       <meta property="og:title" content="About - prithbidesigns" />
       <meta
         property="og:description"
         content="Learn more about Prithbi, my journey in web development, design philosophy, and what drives my passion for creating engaging digital experiences."
       />
-      <meta property="og:url" content="https://portfolio-frontend-y9pr.onrender.com/about" />
+      <meta property="og:url" content="https://prithbidesigns.vercel.app/about" />
       <meta property="og:type" content="website" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content="About - prithbidesigns" />
@@ -54,7 +54,7 @@ const About = () => {
         name="twitter:description"
         content="Learn more about Prithbi, my journey in web development, design philosophy, and what drives my passion for creating engaging digital experiences."
       />
-      <meta name="twitter:url" content="https://portfolio-frontend-y9pr.onrender.com/about" />
+      <meta name="twitter:url" content="https://prithbidesigns.vercel.app/about" />
     </Helmet>
     
     <div>

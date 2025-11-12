@@ -20,11 +20,11 @@ const Blog = () => {
 			<meta name="keywords" content="blog, articles, web development, technology, design, programming, tutorials, tips, insights" />
 			<meta name="author" content="Prithbi" />
 			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-			<link rel="canonical" href="https://portfolio-frontend-y9pr.onrender.com/blog" />
+			<link rel="canonical" href="https://prithbidesigns.vercel.app/blog" />
 			<meta property="og:title" content="Latest Blog Posts & Articles - prithbidesigns" />
 			<meta property="og:description" content="Explore a wide range of articles and insights on web development, technology, design, and more from Prithbi." />
 			<meta property="og:type" content="website" />
-			<meta property="og:url" content="https://portfolio-frontend-y9pr.onrender.com/blog" />
+			<meta property="og:url" content="https://prithbidesigns.vercel.app/blog" />
 			<meta name="twitter:card" content="summary_large_image" />
 			<meta name="twitter:title" content="Latest Blog Posts & Articles - prithbidesigns" />
 			<meta name="twitter:description" content="Explore a wide range of articles and insights on web development, technology, design, and more from Prithbi." />

@@ -21,10 +21,10 @@ const Contact = () => {
         name="description"
         content="Have a project in mind or just want to say hello? Reach out to prithbidesigns for collaborations, inquiries, or feedback."
       />
-      <link rel="canonical" href="https://portfolio-frontend-y9pr.onrender.com/contact" />
+      <link rel="canonical" href="https://prithbidesigns.vercel.app/contact" />
       <meta property="og:title" content="Get in Touch - prithbidesigns" />
       <meta property="og:description" content="Have a project in mind or just want to say hello? Reach out to prithbidesigns for collaborations, inquiries, or feedback." />
-      <meta property="og:url" content="https://portfolio-frontend-y9pr.onrender.com/contact" />
+      <meta property="og:url" content="https://prithbidesigns.vercel.app/contact" />
       <meta property="og:type" content="website" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content="Get in Touch - prithbidesigns" />
