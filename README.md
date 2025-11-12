@@ -8,7 +8,7 @@
 ![ImageKit](https://img.shields.io/badge/imagekit-1D4ED8?logo=icloud&logoColor=white)
 ![Mailchimp](https://img.shields.io/badge/mailchimp-FFE01B?logo=mailchimp&logoColor=black)
 
-🚀 **Live Demo:** [https://portfolio-frontend-y9pr.onrender.com](https://portfolio-frontend-y9pr.onrender.com/)
+🚀 **Live Demo:** [prithbidesigns.com](https://portfolio-frontend-y9pr.onrender.com/)
 
 A dynamic portfolio showcasing **Full Stack Development**, **UI/UX Design**, **Motion Graphics**, and **Affiliate Marketing** projects by me, **Prithbiraj Panda**.  
 Built with **Docker, Node.js/Express, MongoDB, React.js, ImageKit**, and integrated with **Mailchimp** for email marketing.  
