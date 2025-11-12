@@ -7,8 +7,8 @@ import { transformImageKitUrl } from '../../utils/ImageKitUrlModify'; // Import 
 const Footer = ({
   className = "footer-area",
   copyrightYear = "©2025 ",
-  linkText = "Infosuraj",
-  linkUrl = "https://infosuraj.com/about",
+  linkText = "prithbidesigns",
+  linkUrl = "https://portfolio-frontend-y9pr.onrender.com/about",
   copyrightText = ", All Rights Reserved.",
   scrollToTopText = "Scroll to Top",
   scrollToTopTarget = "#",

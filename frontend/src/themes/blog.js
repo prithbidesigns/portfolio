@@ -15,19 +15,19 @@ const Blog = () => {
     return (
 		<>
 		<Helmet>
-			<title>Latest Blog Posts & Articles - INFOSURAJ</title>
-            <meta name="description" content="Explore a wide range of articles and insights on web development, technology, design, and more from Suraj." />
+			<title>Latest Blog Posts & Articles - prithbidesigns</title>
+            <meta name="description" content="Explore a wide range of articles and insights on web development, technology, design, and more from Prithbi." />
 			<meta name="keywords" content="blog, articles, web development, technology, design, programming, tutorials, tips, insights" />
-			<meta name="author" content="Suraj" />
+			<meta name="author" content="Prithbi" />
 			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-			<link rel="canonical" href="https://www.infosuraj.com/blog" />
-			<meta property="og:title" content="Latest Blog Posts & Articles - INFOSURAJ" />
-			<meta property="og:description" content="Explore a wide range of articles and insights on web development, technology, design, and more from Suraj." />
+			<link rel="canonical" href="https://portfolio-frontend-y9pr.onrender.com/blog" />
+			<meta property="og:title" content="Latest Blog Posts & Articles - prithbidesigns" />
+			<meta property="og:description" content="Explore a wide range of articles and insights on web development, technology, design, and more from Prithbi." />
 			<meta property="og:type" content="website" />
-			<meta property="og:url" content="https://www.infosuraj.com/blog" />
+			<meta property="og:url" content="https://portfolio-frontend-y9pr.onrender.com/blog" />
 			<meta name="twitter:card" content="summary_large_image" />
-			<meta name="twitter:title" content="Latest Blog Posts & Articles - INFOSURAJ" />
-			<meta name="twitter:description" content="Explore a wide range of articles and insights on web development, technology, design, and more from Suraj." />
+			<meta name="twitter:title" content="Latest Blog Posts & Articles - prithbidesigns" />
+			<meta name="twitter:description" content="Explore a wide range of articles and insights on web development, technology, design, and more from Prithbi." />
 			<link rel="icon" href="/favicon.ico" />
 		</Helmet>
         <div>

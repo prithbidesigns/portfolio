@@ -2928,7 +2928,7 @@ header {
 		align-items: baseline;
 
 		&.text-original {
-			animation: infosuraj-normal-text-marquee 20s linear infinite;
+			animation: prithbidesigns-normal-text-marquee 20s linear infinite;
 		}
 
 		&.text-copy {
@@ -2938,7 +2938,7 @@ header {
 			will-change: transform;
 			backface-visibility: hidden;
 			transform: translateX(100%) translateZ(0);
-			animation: infosuraj-normal-text-marquee-copy 20s linear infinite;
+			animation: prithbidesigns-normal-text-marquee-copy 20s linear infinite;
 		}
 	}
 
@@ -2969,7 +2969,7 @@ header {
 	}
 }
 
-@keyframes infosuraj-normal-text-marquee {
+@keyframes prithbidesigns-normal-text-marquee {
 	0% {
 		transform: translateX(0) translateZ(0);
 	}
@@ -2979,7 +2979,7 @@ header {
 	}
 }
 
-@keyframes infosuraj-normal-text-marquee-copy {
+@keyframes prithbidesigns-normal-text-marquee-copy {
 	0% {
 		transform: translateX(100%) translateZ(0);
 	}
@@ -3907,7 +3907,7 @@ footer {
 		}
 	}
 
-	#infosuraj-accordion {
+	#prithbidesigns-accordion {
 		.accordion-item {
 			color: var(--secondary-p-color);
 
@@ -4279,7 +4279,7 @@ span.page-numbers {
 	}
 }
 
-#infosuraj-accordion {
+#prithbidesigns-accordion {
 	.accordion-item {
 		background-color: transparent;
 		border: none;

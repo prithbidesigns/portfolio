@@ -20,8 +20,8 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>INFOSURAJ - Portfolio</title>
-        <meta name="description" content="Discover the latest web development projects, insightful articles, and services from Suraj. Specializing in modern web solutions." />
+        <title>prithbidesigns - Portfolio</title>
+        <meta name="description" content="Discover the latest web development projects, insightful articles, and services from Prithbi. Specializing in modern web solutions." />
       </Helmet>
     <div>
       <MagicCursor />

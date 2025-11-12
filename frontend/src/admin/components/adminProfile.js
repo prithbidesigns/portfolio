@@ -406,7 +406,7 @@ export const AdminProfile = ({ profile, onSave, onCancel, onImageUpload }) => {
                     <div
                         id="collapseImages"
                         className="accordion-collapse collapse admin-image-upload"
-                        data-bs-parent="#infosuraj-accordion"
+                        data-bs-parent="#prithbidesigns-accordion"
                     >
                         {[
                             "profileImage",
@@ -463,7 +463,7 @@ export const AdminProfile = ({ profile, onSave, onCancel, onImageUpload }) => {
                     <div
                         id="collapseResumePdf"
                         className="accordion-collapse collapse admin-image-upload"
-                        data-bs-parent="#infosuraj-accordion"
+                        data-bs-parent="#prithbidesigns-accordion"
                     >
                         <div className="admin_form-group">
                             <label>Resume PDF</label>
@@ -512,7 +512,7 @@ export const AdminProfile = ({ profile, onSave, onCancel, onImageUpload }) => {
                     <div
                         id="collapseSocials"
                         className="accordion-collapse collapse admin-image-upload"
-                        data-bs-parent="#infosuraj-accordion"
+                        data-bs-parent="#prithbidesigns-accordion"
                     >
                         <div className="admin_form-group admin_form-full-width">
                             {formData.socials.map((social, index) => (
@@ -590,7 +590,7 @@ export const AdminProfile = ({ profile, onSave, onCancel, onImageUpload }) => {
                     <div
                         id="collapseBreadcrumb"
                         className="accordion-collapse collapse admin-image-upload"
-                        data-bs-parent="#infosuraj-accordion"
+                        data-bs-parent="#prithbidesigns-accordion"
                     >
                         <div className="admin_form-group admin_form-full-width">
                             <div className="admin_faq-block">
@@ -639,7 +639,7 @@ export const AdminProfile = ({ profile, onSave, onCancel, onImageUpload }) => {
                     <div
                         id="collapseServices"
                         className="accordion-collapse collapse"
-                        data-bs-parent="#infosuraj-accordion"
+                        data-bs-parent="#prithbidesigns-accordion"
                     >
                         <div className="accordion-body">
                             <h5 className="card-title">Services Section Details</h5>
@@ -731,7 +731,7 @@ export const AdminProfile = ({ profile, onSave, onCancel, onImageUpload }) => {
                     <div
                         id="collapseFAQs"
                         className="accordion-collapse collapse admin-image-upload"
-                        data-bs-parent="#infosuraj-accordion"
+                        data-bs-parent="#prithbidesigns-accordion"
                     >
                         <div className="admin_form-group admin_form-full-width">
                             {formData.faqs.map((faq, index) => (

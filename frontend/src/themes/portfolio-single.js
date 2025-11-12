@@ -13,10 +13,10 @@ import LenisScroll from "../components/Header/LenisScroll";
 const PortfolioSingle = () => {
   return (
     <div>
-      <title>Projects & Work - INFOSURAJ</title>
+      <title>Projects & Work - prithbidesigns</title>
       <meta
         name="description"
-        content="Explore a collection of Suraj's latest web development, design, and software projects. See Suraj's work in action and learn about Suraj's expertise."
+        content="Explore a collection of Prithbi's latest web development, design, and software projects. See Prithbi's work in action and learn about Prithbi's expertise."
       />
       <MagicCursor />
       <Preloader />

@@ -24,16 +24,16 @@ const ResumeViewer = () => {
   return (
     <>
       <Helmet>
-        <title>Resume - INFOSURAJ</title>
-        <meta name="description" content="View and download Suraj's professional resume showcasing skills, experience, and accomplishments in web development and design." />
-        <meta property="og:title" content="Resume - INFOSURAJ" />
-        <meta property="og:description" content="View and download Suraj's professional resume showcasing skills, experience, and accomplishments in web development and design." />
+        <title>Resume - prithbidesigns</title>
+        <meta name="description" content="View and download Prithbi's professional resume showcasing skills, experience, and accomplishments in web development and design." />
+        <meta property="og:title" content="Resume - prithbidesigns" />
+        <meta property="og:description" content="View and download Prithbi's professional resume showcasing skills, experience, and accomplishments in web development and design." />
         <meta property="og:image" content="%PUBLIC_URL%/img/og-resume.jpg" /> {/* Use a representative image */}
-        <meta property="og:url" content="https://infosuraj.com/resume" />
+        <meta property="og:url" content="https://portfolio-frontend-y9pr.onrender.com/resume" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Resume - INFOSURAJ" />
-        <meta name="twitter:description" content="View and download Suraj's professional resume showcasing skills, experience, and accomplishments in web development and design." />
+        <meta name="twitter:title" content="Resume - prithbidesigns" />
+        <meta name="twitter:description" content="View and download Prithbi's professional resume showcasing skills, experience, and accomplishments in web development and design." />
         <meta name="twitter:image" content="%PUBLIC_URL%/img/og-resume.jpg" />
       </Helmet>
       {/* Top-level miscellaneous components */}
@@ -49,7 +49,7 @@ const ResumeViewer = () => {
           <div className="resume-container">
             {/* --- Call to Action Download Button --- */}
             <div className="cta-container">
-            <MagneticButton href={pdfData.button?.link} target="_blank" rel="noopener noreferrer" download="msurajkumar_resume.pdf">
+            <MagneticButton href={pdfData.button?.link} target="_blank" rel="noopener noreferrer" download="prithbiraj_panda_resume.pdf">
                 {pdfData.button?.text}
             </MagneticButton>
             </div>

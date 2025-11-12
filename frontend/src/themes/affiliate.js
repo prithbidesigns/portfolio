@@ -27,24 +27,24 @@ const Affiliate = () => {
   return (
     <>
     <Helmet>
-      <title>Helpful Resources & Tools - INFOSURAJ</title>
+      <title>Helpful Resources & Tools - prithbidesigns</title>
       <meta
         name="description"
-        content="Discover a curated list of helpful resources, tools, and recommended products that INFOSURAJ uses and trusts for web development and design."
+        content="Discover a curated list of helpful resources, tools, and recommended products that prithbidesigns uses and trusts for web development and design."
       />
-      <link rel="canonical" href="https://www.infosuraj.com/helpful-resources" />
-      <meta property="og:title" content="Helpful Resources & Tools - INFOSURAJ" />
+      <link rel="canonical" href="https://portfolio-frontend-y9pr.onrender.com/helpful-resources" />
+      <meta property="og:title" content="Helpful Resources & Tools - prithbidesigns" />
       <meta
         property="og:description"
-        content="Discover a curated list of helpful resources, tools, and recommended products that INFOSURAJ uses and trusts for web development and design."
+        content="Discover a curated list of helpful resources, tools, and recommended products that prithbidesigns uses and trusts for web development and design."
       />
-      <meta property="og:url" content="https://www.infosuraj.com/helpful-resources" />
+      <meta property="og:url" content="https://portfolio-frontend-y9pr.onrender.com/helpful-resources" />
       <meta property="og:type" content="website" />
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content="Helpful Resources & Tools - INFOSURAJ" />
+      <meta name="twitter:title" content="Helpful Resources & Tools - prithbidesigns" />
       <meta
         name="twitter:description"
-        content="Discover a curated list of helpful resources, tools, and recommended products that INFOSURAJ uses and trusts for web development and design."
+        content="Discover a curated list of helpful resources, tools, and recommended products that prithbidesigns uses and trusts for web development and design."
       />
     </Helmet>
     <div>

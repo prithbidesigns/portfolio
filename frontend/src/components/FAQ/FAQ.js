@@ -27,7 +27,7 @@ const FAQ = () => {
 
         <div className="row justify-content-center mt-4">
           <div className="col-12 col-md-10">
-            <div className="accordion accordion-flush" id="infosuraj-accordion">
+            <div className="accordion accordion-flush" id="prithbidesigns-accordion">
               {faqData.map((faq, index) => (
                 <div className="accordion-item" key={index}>
                   <h4 className="accordion-header">
@@ -43,7 +43,7 @@ const FAQ = () => {
                   <div
                     id={`collapse${index + 1}`}
                     className={`accordion-collapse collapse ${index === 0 ? 'show' : ''}`}
-                    data-bs-parent="#infosuraj-accordion"
+                    data-bs-parent="#prithbidesigns-accordion"
                   >
                     <div className="accordion-body">{faq.answer}</div>
                   </div>

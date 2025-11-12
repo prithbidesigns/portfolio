@@ -801,11 +801,11 @@ const Admin = () => {
   return (
     <>
     <Helmet>
-      <title>INFOSURAJ Admin Panel</title>
+      <title>prithbidesigns Admin Panel</title>
       <meta name="robots" content="noindex, nofollow" />
       <meta
         name="description"
-        content="Admin dashboard for INFOSURAJ website management."
+        content="Admin dashboard for prithbidesigns website management."
       />
     </Helmet>
     <div className="admin_container">

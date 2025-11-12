@@ -18,7 +18,7 @@ const Hero = ({
     const [descriptionText, setDescriptionText] = useState('')
     useEffect(() => {
         if (profile?.name){
-            setIntroText(`${profile?.name || 'Suraj'}`)
+            setIntroText(`${profile?.name || 'prithbidesigns'}`)
         }
         if (profile?.description) {
             setDescriptionText(`${profile?.description || 'I transform ideas into impactful digital experiences, delivering innovative solutions that elevate brands and captivate audiences around the world'}`)

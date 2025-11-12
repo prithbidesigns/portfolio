@@ -16,27 +16,27 @@ const Portfolio = () => {
   return (
     <>
       <Helmet>
-        <title>Projects & Work - INFOSURAJ</title>
+        <title>Projects & Work - prithbidesigns</title>
         <meta
           name="description"
-          content="Explore a collection of Suraj's latest web development, design, and software projects. See Suraj's work in action and learn about Suraj's expertise."
+          content="Explore a collection of Prithbi's latest web development, design, and software projects. See Prithbi's work in action and learn about Prithbi's expertise."
         />
         {/* Open Graph / Facebook */}
-        <meta property="og:title" content="Projects & Work - INFOSURAJ" />
+        <meta property="og:title" content="Projects & Work - prithbidesigns" />
         <meta
           property="og:description"
-          content="Explore a collection of Suraj's latest web development, design, and software projects. See Suraj's work in action and learn about Suraj's expertise."
+          content="Explore a collection of Prithbi's latest web development, design, and software projects. See Prithbi's work in action and learn about Prithbi's expertise."
         />
         <meta property="og:image" content="%PUBLIC_URL%/img/og-projects.jpg" />{" "}
         {/* Use a representative image */}
-        <meta property="og:url" content="https://infosuraj.com/portfolio" />
+        <meta property="og:url" content="https://portfolio-frontend-y9pr.onrender.com/portfolio" />
         <meta property="og:type" content="website" />
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Projects & Work - INFOSURAJ" />
+        <meta name="twitter:title" content="Projects & Work - prithbidesigns" />
         <meta
           name="twitter:description"
-          content="Explore a collection of Suraj's latest web development, design, and software projects. See Suraj's work in action and learn about Suraj's expertise."
+          content="Explore a collection of Prithbi's latest web development, design, and software projects. See Prithbi's work in action and learn about Prithbi's expertise."
         />
         <meta name="twitter:image" content="%PUBLIC_URL%/img/og-projects.jpg" />
       </Helmet>

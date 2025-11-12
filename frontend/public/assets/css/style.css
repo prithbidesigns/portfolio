@@ -2779,7 +2779,7 @@ logo-main{
   align-items: baseline;
 }
 .text-marquee .marquee-text.text-original {
-  animation: infosuraj-normal-text-marquee 20s linear infinite;
+  animation: prithbidesigns-normal-text-marquee 20s linear infinite;
 }
 .text-marquee .marquee-text.text-copy {
   position: absolute;
@@ -2788,7 +2788,7 @@ logo-main{
   will-change: transform;
   backface-visibility: hidden;
   transform: translateX(100%) translateZ(0);
-  animation: infosuraj-normal-text-marquee-copy 20s linear infinite;
+  animation: prithbidesigns-normal-text-marquee-copy 20s linear infinite;
 }
 .text-marquee .marquee-text-item {
   font-size: 100px;
@@ -2811,7 +2811,7 @@ logo-main{
   color: #f778ba;
 }
 
-@keyframes infosuraj-normal-text-marquee {
+@keyframes prithbidesigns-normal-text-marquee {
   0% {
     transform: translateX(0) translateZ(0);
   }
@@ -2819,7 +2819,7 @@ logo-main{
     transform: translateX(-100%) translateZ(0);
   }
 }
-@keyframes infosuraj-normal-text-marquee-copy {
+@keyframes prithbidesigns-normal-text-marquee-copy {
   0% {
     transform: translateX(100%) translateZ(0);
   }
@@ -3537,10 +3537,10 @@ footer .smooth-anchor:hover::after {
 .odd .awards .logo img {
   filter: invert(1);
 }
-.odd #infosuraj-accordion .accordion-item {
+.odd #prithbidesigns-accordion .accordion-item {
   color: var(--secondary-p-color);
 }
-.odd #infosuraj-accordion .accordion-item .accordion-button {
+.odd #prithbidesigns-accordion .accordion-item .accordion-button {
   background-color: var(--secondary-bg-color-2);
   color: var(--white-color);
 }
@@ -3817,18 +3817,18 @@ span.page-numbers:hover:not(.current) {
     transform: translateX(0);
   }
 }
-#infosuraj-accordion .accordion-item {
+#prithbidesigns-accordion .accordion-item {
   background-color: transparent;
   border: none;
   color: var(--primary-p-color);
 }
-#infosuraj-accordion .accordion-item:not(:last-child) {
+#prithbidesigns-accordion .accordion-item:not(:last-child) {
   margin-bottom: 0.5rem;
 }
-#infosuraj-accordion .accordion-item .accordion-header {
+#prithbidesigns-accordion .accordion-item .accordion-header {
   margin: 0;
 }
-#infosuraj-accordion .accordion-item .accordion-button {
+#prithbidesigns-accordion .accordion-item .accordion-button {
   position: relative;
   background-color: var(--primary-bg-color);
   border-radius: var(--primary-border-radius);
@@ -3837,7 +3837,7 @@ span.page-numbers:hover:not(.current) {
   font-weight: 500;
   color: var(--primary-t-color);
 }
-#infosuraj-accordion .accordion-item .accordion-button::after {
+#prithbidesigns-accordion .accordion-item .accordion-button::after {
   position: absolute;
   content: "\f4fe";
   left: calc(100% - 3rem);
@@ -3848,10 +3848,10 @@ span.page-numbers:hover:not(.current) {
   font-family: bootstrap-icons !important;
   transition-timing-function: var(--transition-function);
 }
-#infosuraj-accordion .accordion-item .accordion-button:focus {
+#prithbidesigns-accordion .accordion-item .accordion-button:focus {
   z-index: 1;
 }
-#infosuraj-accordion .accordion-item:has(.collapse.show) .accordion-button::after {
+#prithbidesigns-accordion .accordion-item:has(.collapse.show) .accordion-button::after {
   content: "\f2ea" !important;
 }
 

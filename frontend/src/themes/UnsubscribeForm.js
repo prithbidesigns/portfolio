@@ -12,7 +12,7 @@ const UnsubscribeForm = () => {
   // Define your logo and banner URLs here for consistency
   const LOGO_URL = "https://ik.imagekit.io/upzxi2yzb/tr:w-800,q-100,fo-auto/profile/Asset_4_ucSXtHMrz.svg";
   const BANNER_URL = "https://ik.imagekit.io/upzxi2yzb/tr:w-800,q-100,fo-auto/Mail%20Subscribe%20Assets/email-banner.png";
-  const WEBSITE_URL = "https://infosuraj.com/";
+  const WEBSITE_URL = "https://portfolio-frontend-y9pr.onrender.com/";
 
   // useEffect to read email from URL query parameter (common for unsubscribe links)
   useEffect(() => {
@@ -274,20 +274,20 @@ const UnsubscribeForm = () => {
   return (
     <>
     <Helmet>
-      <title>Unsubscribe Newsletter - INFOSURAJ</title>
-      <meta name="description" content="Manage your newsletter subscription preferences. Unsubscribe from future emails from INFOSURAJ." />
+      <title>Unsubscribe Newsletter - prithbidesigns</title>
+      <meta name="description" content="Manage your newsletter subscription preferences. Unsubscribe from future emails from prithbidesigns." />
       <meta name="robots" content="noindex, follow" />
     </Helmet>
     <div className="container-center">
       <style>{customStyles}</style>
       <div className="card">
         {/* Banner at the very top of the card */}
-        <img src={BANNER_URL} alt="infosuraj Banner" className="card__banner" />
+        <img src={BANNER_URL} alt="prithbidesigns Banner" className="card__banner" />
 
         <div className="card__header">
           {/* Logo centered and clickable */}
           <a href={WEBSITE_URL} target="_blank" rel="noopener noreferrer" style={{ display: 'block', textDecoration: 'none' }}>
-            <img src={LOGO_URL} alt="infosuraj Logo" className="card__logo" />
+            <img src={LOGO_URL} alt="prithbidesigns Logo" className="card__logo" />
           </a>
           <span className="card__title">Unsubscribe</span>
         </div>

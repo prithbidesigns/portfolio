@@ -16,19 +16,19 @@ const Contact = () => {
   return (
     <>
     <Helmet>
-      <title>Get in Touch - INFOSURAJ</title>
+      <title>Get in Touch - prithbidesigns</title>
       <meta
         name="description"
-        content="Have a project in mind or just want to say hello? Reach out to INFOSURAJ for collaborations, inquiries, or feedback."
+        content="Have a project in mind or just want to say hello? Reach out to prithbidesigns for collaborations, inquiries, or feedback."
       />
-      <link rel="canonical" href="https://www.infosuraj.com/contact" />
-      <meta property="og:title" content="Get in Touch - INFOSURAJ" />
-      <meta property="og:description" content="Have a project in mind or just want to say hello? Reach out to INFOSURAJ for collaborations, inquiries, or feedback." />
-      <meta property="og:url" content="https://www.infosuraj.com/contact" />
+      <link rel="canonical" href="https://portfolio-frontend-y9pr.onrender.com/contact" />
+      <meta property="og:title" content="Get in Touch - prithbidesigns" />
+      <meta property="og:description" content="Have a project in mind or just want to say hello? Reach out to prithbidesigns for collaborations, inquiries, or feedback." />
+      <meta property="og:url" content="https://portfolio-frontend-y9pr.onrender.com/contact" />
       <meta property="og:type" content="website" />
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content="Get in Touch - INFOSURAJ" />
-      <meta name="twitter:description" content="Have a project in mind or just want to say hello? Reach out to INFOSURAJ for collaborations, inquiries, or feedback." />
+      <meta name="twitter:title" content="Get in Touch - prithbidesigns" />
+      <meta name="twitter:description" content="Have a project in mind or just want to say hello? Reach out to prithbidesigns for collaborations, inquiries, or feedback." />
     </Helmet>
     <div>
       {/* Rest of your Contact page content */}

@@ -9,9 +9,9 @@ const getAutoReplyTemplate = ({ name, email, message }) => {
   const CANCEL_BELL_ICON_URL =
     "https://ik.imagekit.io/upzxi2yzb/tr:w-50,q-80,fo-auto/Mail%20Subscribe%20Assets/w8eutv6bbtoafj80u7fj.png";
   const INSTAGRAM_URL = "https://www.instagram.com/infosuraj_/";
-  const LINKEDIN_URL = "https://www.linkedin.com/in/infosuraj/";
-  const WEBSITE_URL = "https://infosuraj.com/";
-  const SUPPORT_EMAIL = "support@infosuraj.com";
+  const LINKEDIN_URL = "https://www.linkedin.com/in/prithbidesigns/";
+  const WEBSITE_URL = "https://portfolio-frontend-y9pr.onrender.com/";
+  const SUPPORT_EMAIL = "support@prithbidesigns.com";
   const SUBSCRIBE_URL = `${WEBSITE_URL}subscribe?email=${encodeURIComponent(
     email || ""
   )}`;
@@ -26,7 +26,7 @@ const getAutoReplyTemplate = ({ name, email, message }) => {
                 <td style="padding: 15px 0px 15px 25px; text-align: left; vertical-align: middle;">
                     <!-- Logo on the left -->
                     <a href="${WEBSITE_URL}" target="_blank" rel="noopener noreferrer" style="display: inline-block; text-decoration: none;">
-                        <img src="${LOGO_URL}" alt="infosuraj Logo" style="max-width: 50px; height: auto; display: block; vertical-align: middle;">
+                        <img src="${LOGO_URL}" alt="prithbidesigns Logo" style="max-width: 50px; height: auto; display: block; vertical-align: middle;">
                     </a>
                 </td>
                 <td style="padding: 15px 25px 15px 0px; text-align: right; vertical-align: middle;">
@@ -55,7 +55,7 @@ const getAutoReplyTemplate = ({ name, email, message }) => {
                 </li>
             </ul>
             <p style="font-size: 16px; line-height: 1.6; color: #333333; margin-top: 30px;">Talk soon,<br/>
-            <strong style="color: #333333;">— Suraj Kumar</strong><br/>
+            <strong style="color: #333333;">— Prithbiraj Panda</strong><br/>
             <a href="mailto:${SUPPORT_EMAIL}" style="color: #333333; text-decoration: none; font-size: 14px;">${SUPPORT_EMAIL}</a>
             </p>
         </div>

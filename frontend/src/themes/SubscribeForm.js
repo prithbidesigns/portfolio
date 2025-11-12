@@ -273,16 +273,16 @@ const SubscribeForm = () => {
   return (
     <>
     <Helmet>
-      <title>Subscribe Newsletter - INFOSURAJ</title>
-      <meta name="description" content="Join the INFOSURAJ newsletter to get the latest updates, exclusive content, and insights directly to your inbox." />
-      <meta property="og:title" content="Subscribe Newsletter - INFOSURAJ" />
-      <meta property="og:description" content="Join the INFOSURAJ newsletter to get the latest updates, exclusive content, and insights directly to your inbox." />
+      <title>Subscribe Newsletter - prithbidesigns</title>
+      <meta name="description" content="Join the prithbidesigns newsletter to get the latest updates, exclusive content, and insights directly to your inbox." />
+      <meta property="og:title" content="Subscribe Newsletter - prithbidesigns" />
+      <meta property="og:description" content="Join the prithbidesigns newsletter to get the latest updates, exclusive content, and insights directly to your inbox." />
       <meta property="og:image" content="%PUBLIC_URL%/img/og-newsletter.jpg" /> {/* Use a representative image */}
-      <meta property="og:url" content="https://infosuraj.com/subscribe" />
+      <meta property="og:url" content="https://portfolio-frontend-y9pr.onrender.com/subscribe" />
       <meta property="og:type" content="website" />
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content="Subscribe Newsletter - INFOSURAJ" />
-      <meta name="twitter:description" content="Join the INFOSURAJ newsletter to get the latest updates, exclusive content, and insights directly to your inbox." />
+      <meta name="twitter:title" content="Subscribe Newsletter - prithbidesigns" />
+      <meta name="twitter:description" content="Join the prithbidesigns newsletter to get the latest updates, exclusive content, and insights directly to your inbox." />
       <meta name="twitter:image" content="%PUBLIC_URL%/img/og-newsletter.jpg" />
     </Helmet>
     
@@ -290,12 +290,12 @@ const SubscribeForm = () => {
       <style>{customStyles}</style>
       <div className="card">
         {/* Banner at the very top of the card */}
-        <img src={BANNER_URL} alt="infosuraj Banner" className="card__banner" />
+        <img src={BANNER_URL} alt="prithbidesigns Banner" className="card__banner" />
 
         <div className="card__header">
           {/* Logo and title side-by-side */}
-          <a href="https://infosuraj.com/" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textDecoration: 'none' }}>
-            <img src={LOGO_URL} alt="infosuraj Logo" className="card__logo" />
+          <a href="https://portfolio-frontend-y9pr.onrender.com/" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textDecoration: 'none' }}>
+            <img src={LOGO_URL} alt="prithbidesigns Logo" className="card__logo" />
           </a>
           <span className="card__title">Newsletter</span>
         </div>
