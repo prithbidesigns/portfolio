@@ -1,4 +1,4 @@
-# Suraj Kumar – Personal Portfolio
+# Prithbiraj Panda – Personal Portfolio
 
 ![Dockerized](https://img.shields.io/badge/docker-ready-blue?logo=docker&logoColor=white)
 ![Node.js](https://img.shields.io/badge/node.js-339933?logo=node.js&logoColor=white)
@@ -8,9 +8,9 @@
 ![ImageKit](https://img.shields.io/badge/imagekit-1D4ED8?logo=icloud&logoColor=white)
 ![Mailchimp](https://img.shields.io/badge/mailchimp-FFE01B?logo=mailchimp&logoColor=black)
 
-🚀 **Live Demo:** [infosuraj.com](https://infosuraj.com)
+🚀 **Live Demo:** [https://portfolio-frontend-y9pr.onrender.com](https://portfolio-frontend-y9pr.onrender.com/)
 
-A dynamic portfolio showcasing **Full Stack Development**, **UI/UX Design**, **Motion Graphics**, and **Affiliate Marketing** projects by me, **Suraj Kumar**.  
+A dynamic portfolio showcasing **Full Stack Development**, **UI/UX Design**, **Motion Graphics**, and **Affiliate Marketing** projects by me, **Prithbiraj Panda**.  
 Built with **Docker, Node.js/Express, MongoDB, React.js, ImageKit**, and integrated with **Mailchimp** for email marketing.  
 Explore innovative web solutions, engaging user experiences, and impactful branding work — all crafted to drive results.
 
@@ -119,10 +119,10 @@ cp .env.example .env
 
 ```bash
 # Clone this repository
-git clone https://github.com/YOUR-USERNAME/infosuraj-portfolio.git
+git clone https://github.com/prithbidesigns/portfolio.git
 
 # Navigate to the project directory
-cd infosuraj-portfolio
+cd portfolio
 
 # Install dependencies for frontend & backend
 cd frontend && npm install
@@ -136,9 +136,9 @@ docker-compose up --build
 
 ## 📞 Contact Me
 
-📧 **Email:** [info.msurajkumarr@gmail.com](mailto:info.msurajkumarr@gmail.com)
-🌐 **Website:** [infosuraj.com](https://infosuraj.com)
-💼 **LinkedIn:** [linkedin.com/in/msurajkumar](https://linkedin.com/in/msurajkumar)
+📧 **Email:** [prithbidesigns@gmail.com](mailto:prithbidesigns@gmail.com)
+🌐 **Website:** [prithbidesigns.com](https://portfolio-frontend-y9pr.onrender.com/)
+💼 **LinkedIn:** [linkedin.com/in/prithbidesigns](https://www.linkedin.com/in/prithbidesigns/)
 
 ---
 
