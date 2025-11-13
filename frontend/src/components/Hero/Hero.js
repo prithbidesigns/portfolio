@@ -87,8 +87,8 @@ const Hero = ({
                 </div>
             </div>
             <div className="hero-bg">
-                <img className="circle-1" src={bgImage1} alt="Background 1" />
-                <img className="circle-2" src={bgImage2} alt="Background 2" />
+                {/* <img className="circle-1" src={bgImage1} alt="Background 1" />
+                <img className="circle-2" src={bgImage2} alt="Background 2" /> */}
             </div>
         </section>
     );

@@ -67,6 +67,24 @@ const Header = () => {
   }, [profile, loader]);
 
   return (
+     <>
+      {/* 🔹 Glass effect CSS (inline at file level) */}
+      <style>{`
+        .header {
+          background: rgba(255, 255, 255, 0.15);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+          border-radius: 12px;
+          transition: background 0.3s ease, backdrop-filter 0.3s ease;
+        }
+
+        body.odd .header {
+          background: rgba(0, 0, 0, 0.25);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+      `}</style>
     <header id="header">
       <nav className="navbar navbar-expand">
         <div className="container header">
@@ -145,6 +163,7 @@ const Header = () => {
 
       <div id="navbar-main" className="main"></div>
     </header>
+    </>
   );
 };
 

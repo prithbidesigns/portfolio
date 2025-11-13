@@ -223,7 +223,7 @@ const SubscribeFooter = () => {
           }
         }
         .Subscribe-btn:active {
-          transform: scale(0.9);
+          transform: scale(0.6) !important;
         }
 
         .message {
@@ -268,7 +268,7 @@ const SubscribeFooter = () => {
           .Subscribe-btn {
             width: 100px;
             height: 100%;
-            font-size: 0.9em;
+            font-size: 0.5em !important;
           }
 
           .icon-subscribe {
@@ -286,7 +286,7 @@ const SubscribeFooter = () => {
             height: 80%;
           }
           .Subscribe-btn {
-            font-size: 0.9em;
+            font-size: 0.5em !important;
             height: 100%;
             width: 95px;
             border-radius: 12px;

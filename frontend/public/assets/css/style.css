@@ -2895,11 +2895,11 @@ logo-main{
 
 /* Rotations for aesthetic (keep if desired) */
 .marquee ul .item:nth-child(even) .marquee-item {
-  transform: rotate(4deg);
+  transform: rotate(0deg);
 }
 
 .marquee ul .item:nth-child(odd) .marquee-item {
-  transform: rotate(-4deg);
+  transform: rotate(0deg);
 }
 
 /* --- Corrected Keyframes for Seamless Loop --- */
@@ -3463,9 +3463,9 @@ footer .smooth-anchor:hover::after {
 .odd .experiences .item {
   border-color: var(--primary-b-color);
 }
-.odd .marquee ul .item .marquee-item {
+/* .odd .marquee ul .item .marquee-item {
   background-color: var(--secondary-bg-color-2);
-}
+} */
 .odd .primary-bg {
   background-color: var(--secondary-bg-color-2);
 }
