@@ -79,14 +79,13 @@ const imageKitUploadRoutes = (authenticateAdmin) => {
 
         const { folder } = req.body;
         const fileName = file.originalname;
-
+console.log(req.body)
         // 1️⃣ Upload original file
         const uploadResult = await imagekit.upload({
           file: file.buffer,
           fileName,
           folder: folder ? `/${folder}` : undefined,
         });
-
         let thumbnailBuffer;
         let thumbFileName = `thumb-${fileName.replace(/\.[^/.]+$/, ".jpg")}`;
 
@@ -101,14 +100,18 @@ const imageKitUploadRoutes = (authenticateAdmin) => {
           const midPoint = Math.floor(duration / 2);
           thumbnailBuffer = await generateVideoThumbnail(file.buffer, midPoint);
         }
-
         // 3️⃣ Upload thumbnail to ImageKit
-        const thumbUpload = await imagekit.upload({
-          file: thumbnailBuffer,
-          fileName: thumbFileName,
-          folder: folder ? `/${folder}/thumbnails` : "/thumbnails",
-        });
-
+        let thumbUpload = {
+                url: 'https://prithbidesign.com',
+              }
+        if (thumbnailBuffer){
+            thumbUpload = await imagekit.upload({
+            file: thumbnailBuffer,
+            fileName: thumbFileName,
+            folder: folder ? `/${folder}/thumbnails` : "/thumbnails",
+          });
+        console.log(thumbUpload)
+        }
         // 4️⃣ Return response
         res.status(200).json({
           url: uploadResult.url,
