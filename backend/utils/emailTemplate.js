@@ -8,10 +8,10 @@ const getAutoReplyTemplate = ({ name, email, message }) => {
     "https://ik.imagekit.io/upzxi2yzb/tr:w-50,q-80,fo-auto/Mail%20Subscribe%20Assets/ktcvml64rklcd0tiigpg.png";
   const CANCEL_BELL_ICON_URL =
     "https://ik.imagekit.io/upzxi2yzb/tr:w-50,q-80,fo-auto/Mail%20Subscribe%20Assets/w8eutv6bbtoafj80u7fj.png";
-  const INSTAGRAM_URL = "https://www.instagram.com/infosuraj_/";
+  const INSTAGRAM_URL = "https://www.instagram.com/prithbi0018/";
   const LINKEDIN_URL = "https://www.linkedin.com/in/prithbidesigns/";
   const WEBSITE_URL = "https://prithbidesigns.com/";
-  const SUPPORT_EMAIL = "support@prithbidesigns.com";
+  const SUPPORT_EMAIL = "connectprithbidesigns.com";
   const SUBSCRIBE_URL = `${WEBSITE_URL}subscribe?email=${encodeURIComponent(
     email || ""
   )}`;
@@ -40,10 +40,10 @@ const getAutoReplyTemplate = ({ name, email, message }) => {
                 </td>
             </tr>
         </table>
-        <!-- Banner -->
+        <!-- Banner 
         <div style="text-align: center; line-height: 0;">
             <img src="${BANNER_URL}" alt="Welcome Banner" style="width: 100%; height: auto; display: block;">
-        </div>
+        </div> -->
         <!-- Main Content -->
         <div style="padding: 30px;">
             <p style="font-size: 16px; line-height: 1.6; color: #333333;">Hi ${name},</p>
