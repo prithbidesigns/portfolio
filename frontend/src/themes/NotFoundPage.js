@@ -23,7 +23,7 @@ const NotFoundPage = () => {
       <meta name="robots" content="noindex, follow" />
       <meta property="og:title" content="404 prithbidesigns - Page Not Found" />
       <meta property="og:description" content="This page isn't available. Explore prithbidesigns for web development insights and innovative projects." />
-      <meta property="og:url" content="https://prithbidesigns.vercel.app/404" />
+      <meta property="og:url" content="https://prithbidesigns.com/404" />
       <meta property="og:type" content="website" />
       <div>
       <MagicCursor />

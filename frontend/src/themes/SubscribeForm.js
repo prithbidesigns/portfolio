@@ -278,7 +278,7 @@ const SubscribeForm = () => {
       <meta property="og:title" content="Subscribe Newsletter - prithbidesigns" />
       <meta property="og:description" content="Join the prithbidesigns newsletter to get the latest updates, exclusive content, and insights directly to your inbox." />
       <meta property="og:image" content="%PUBLIC_URL%/img/og-newsletter.jpg" /> {/* Use a representative image */}
-      <meta property="og:url" content="https://prithbidesigns.vercel.app/subscribe" />
+      <meta property="og:url" content="https://prithbidesigns.com/subscribe" />
       <meta property="og:type" content="website" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content="Subscribe Newsletter - prithbidesigns" />
@@ -294,7 +294,7 @@ const SubscribeForm = () => {
 
         <div className="card__header">
           {/* Logo and title side-by-side */}
-          <a href="https://prithbidesigns.vercel.app/" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textDecoration: 'none' }}>
+          <a href="https://prithbidesigns.com/" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textDecoration: 'none' }}>
             <img src={LOGO_URL} alt="prithbidesigns Logo" className="card__logo" />
           </a>
           <span className="card__title">Newsletter</span>

@@ -16,9 +16,11 @@ import UnsubscribeForm from "../themes/UnsubscribeForm";
 import NotFoundPage from "../themes/NotFoundPage";
 import ResumeViewer from "../themes/resume";
 
+
 const MyRoutes = () => {
   return (
     <Router>
+      
       <Routes>
         <Route path="/" element={<Home />} />
 		<Route path="/portfolio" element={<Portfolio />} />
