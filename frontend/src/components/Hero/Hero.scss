@@ -9,13 +9,14 @@ html, body {
   height: 100%;
 }
 
-body {
-  overflow: hidden; /* prevent scrollbars */
-}
+// body {
+//   overflow: hidden; /* prevent scrollbars */
+// }
 
 /* -----------------------------------------
    Hero Background Container
 ----------------------------------------- */
+
 .hero-bg-line {
   position: absolute;
   top: 0;
@@ -26,11 +27,15 @@ body {
   margin: 0 auto;
   display: flex;
   align-items: center;
-
+pointer-events: none;  
+  z-index: 0;  
   /* Dark theme */
+    @media (max-width: 768px) {
+    width: 100vw;
+  }
   &.dark {
     .bg-line {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
 
       &::after {
         background: linear-gradient(
@@ -46,7 +51,7 @@ body {
   /* Light theme */
   &.light {
     .bg-line {
-      background: rgba(0, 0, 0, 0.1);
+      background: rgba(0, 0, 0, 0.05);
 
       &::after {
         background: linear-gradient(
@@ -113,4 +118,9 @@ body {
     opacity: 0;
     transform: scaleY(1);
   }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;  /* button stays above background */
 }

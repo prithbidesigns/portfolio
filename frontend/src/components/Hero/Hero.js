@@ -11,11 +11,53 @@ const Hero = ({
   title = "Crafting bold experiences through",
   highlightedText = "design & code.",
   buttonText = "Let's Talk!",
-  isLightTheme = false, // pass true for light theme, false for dark
 }) => {
   const { profile } = useProfile();
   const [introText, setIntroText] = useState("");
   const [descriptionText, setDescriptionText] = useState("");
+
+  const [isLightTheme, setIsLightTheme] = useState(true);
+
+useEffect(() => {
+  // 1️⃣ Read theme from localStorage on first load
+  const savedTheme = localStorage.getItem("isDarkMode");
+
+  if (savedTheme !== null) {
+    // localStorage stores strings → "true" or "false"
+    const isDark = savedTheme === "true";
+    setIsLightTheme(!isDark);
+
+    // also ensure body class matches stored theme
+    if (isDark) {
+      document.body.classList.add("odd");
+    } else {
+      document.body.classList.remove("odd");
+    }
+  } else {
+    // 2️⃣ Fallback: detect from body class if localStorage missing
+    const isDarkBody = document.body.classList.contains("odd");
+    setIsLightTheme(!isDarkBody);
+  }
+
+  // 3️⃣ Watch for theme class changes (toggle button updates body)
+  const updateTheme = () => {
+    const isDark = document.body.classList.contains("odd");
+    setIsLightTheme(!isDark);
+
+    // sync back to localStorage
+    localStorage.setItem("isDarkMode", isDark.toString());
+  };
+
+  const observer = new MutationObserver(updateTheme);
+
+  observer.observe(document.body, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+
+  return () => observer.disconnect();
+}, []);
+
 
   useEffect(() => {
     if (profile?.name) {
@@ -30,7 +72,6 @@ const Hero = ({
       );
     }
   }, [profile]);
-
   return (
     <section id="home" className="hero-section">
       <div className="container">

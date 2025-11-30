@@ -63,13 +63,20 @@ const Preloader = () => {
 
       <div className="loader-container">
         <div className="loaded" ref={loadedRef}>
-          <span>L</span>
-          <span>O</span>
-          <span>A</span>
-          <span>D</span>
+          <span>P</span>
+          <span>R</span>
           <span>I</span>
-          <span>N</span>
+          <span>T</span>
+          <span>H</span>
+          <span>B</span>
+          <span>I</span>
+          <span>D</span>
+          <span>E</span>
+          <span>S</span>
+          <span>I</span>
           <span>G</span>
+          <span>N</span>
+          <span>S</span>
         </div>
       </div>
     </div>
