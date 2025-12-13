@@ -77,10 +77,11 @@ const initialFormState = {
 };
 
 const categoryOptions = [
-  "web-development",
-  "art",
-  "photography",
-  "digital-marketing",
+  "Web/Game-Development",
+  "Motion/Graphics-Design",
+  "UI/UX-Design",
+  "Photo/Videography",
+  
 ];
 
 export const ProjectForm = ({ project, onSave, onCancel, onImageUpload }) => {
@@ -343,18 +344,21 @@ export const ProjectForm = ({ project, onSave, onCancel, onImageUpload }) => {
           <label>Categories</label>
           <div className="admin_checkbox-grid">
             {categoryOptions.map((category) => (
+              <div className="">
               <label key={category} className="admin_checkbox-item">
-                <input
+
+                {category
+                  .replace("-", " ")
+                  .replace(/\b\w/g, (l) => l.toUpperCase())}
+              </label>
+                              <input
                   type="checkbox"
                   name="categories"
                   value={category}
                   checked={formData.categories.includes(category)}
                   onChange={handleChange}
                 />
-                {category
-                  .replace("-", " ")
-                  .replace(/\b\w/g, (l) => l.toUpperCase())}
-              </label>
+                </div>
             ))}
           </div>
         </div>

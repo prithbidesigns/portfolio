@@ -20,10 +20,10 @@ const PortfolioTwo = () => {
 
   const categories = [
     { id: "all", label: "All" },
-    { id: "web-development", label: "Web Development" },
-    { id: "art", label: "Art" },
-    { id: "photography", label: "Photography" },
-    { id: "digital-marketing", label: "Digital Marketing" },
+    { id: "Web/Game-Development", label: "Web/Game Development" },
+    { id: "Motion/Graphics-Design", label: "Motion/Graphics Design" },
+    { id: "UI/UX-Design", label: "UI/UX Design" },
+    { id: "Photo/Videography", label: "Photo/Videography" },
   ];
 
   if (!portfolioData) {
