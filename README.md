@@ -136,7 +136,7 @@ docker-compose up --build
 
 ## 📞 Contact Me
 
-📧 **Email:** [prithbidesigns@gmail.com](mailto:prithbidesigns@gmail.com)
+📧 **Email:** [connect@prithbidesigns.com](mailto:connect@prithbidesigns.co)
 🌐 **Website:** [prithbidesigns.com](https://prithbidesigns.com/)
 💼 **LinkedIn:** [linkedin.com/in/prithbidesigns](https://www.linkedin.com/in/prithbidesigns/)
 

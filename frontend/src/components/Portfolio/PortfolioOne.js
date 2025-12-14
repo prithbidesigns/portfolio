@@ -11,10 +11,25 @@ const PortfolioOne = () => {
     const baseUrl = process.env.REACT_APP_API_BASE_URL;
     // Fetch only the first 4 portfolio items
     axios
-      .get(`${baseUrl}/projects?limit=4`) // _limit=4 limits the results to 4 items
+      .get(`${baseUrl}/projects?limit=10`) // _limit=10 limits the results to 4 items
       .then((response) => setPortfolioItems(response.data))
       .catch((error) => console.error("Error fetching portfolio data:", error));
   }, []);
+const getPortfolioLink = (item) => {
+  const specialCategories = ["Web/Game-Development", "UI/UX-Design"];
+
+  const matchedCategory = item.categories.find((cat) =>
+    specialCategories.includes(cat)
+  );
+
+  // If matches special category → go to PortfolioTwo with filter
+  if (matchedCategory) {
+    return `/portfolio?filter=${encodeURIComponent(matchedCategory)}`;
+  }
+
+  // Otherwise → normal project detail page
+  return `/portfolio-project/${item._id}/${slugify(item.title)}`;
+};
 
   return (
     <div className="row">
@@ -23,7 +38,7 @@ const PortfolioOne = () => {
           <div className="stack-item" key={item._id}>
             <div className="card portfolio-item layout-2 scale has-shadow">
               {/* Using a standard <a> tag for a full page refresh */}
-              <a href={`/portfolio-project/${item._id}/${slugify(item.title)}`}>
+              <a href={getPortfolioLink(item)}>
                 <div className="image-holder">
                   {(() => {
                     let smallScreenSrc;

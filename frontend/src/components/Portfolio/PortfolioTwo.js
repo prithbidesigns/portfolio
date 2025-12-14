@@ -3,10 +3,24 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import slugify from "../../utils/slungify";
 import { transformImageKitUrl } from "../../utils/ImageKitUrlModify"; // Import the utility function
+import { useLocation, useNavigate } from "react-router-dom";
 
 const PortfolioTwo = () => {
   const [portfolioData, setportfolioData] = useState(null);
   const [activeFilter, setActiveFilter] = useState("all");
+const navigate = useNavigate();
+const location = useLocation();
+
+useEffect(() => {
+  const params = new URLSearchParams(location.search);
+  const filterFromUrl = params.get("filter");
+
+  if (filterFromUrl) {
+    setActiveFilter(filterFromUrl);
+  } else {
+    setActiveFilter("all");
+  }
+}, [location.search]);
 
   useEffect(() => {
     const baseUrl = process.env.REACT_APP_API_BASE_URL;
@@ -30,9 +44,18 @@ const PortfolioTwo = () => {
     return <div>Loading portfolio...</div>;
   }
 
-  const handleFilterClick = (id) => {
-    setActiveFilter(id);
-  };
+const handleFilterClick = (id) => {
+  setActiveFilter(id);
+
+  if (id === "all") {
+    // Remove filter param for clean URL
+    navigate("/portfolio", { replace: true });
+  } else {
+    navigate(`/portfolio?filter=${encodeURIComponent(id)}`, {
+      replace: true,
+    });
+  }
+};
 
   const getCategoryCount = (category) => {
     if (!portfolioData) return "00";

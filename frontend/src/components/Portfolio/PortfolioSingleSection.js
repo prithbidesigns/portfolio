@@ -66,6 +66,19 @@ const PrevArrow = ({ className, style, onClick, isDarkMode }) => {
 const PortfolioSingleSection = () => {
   const [portfolio, setPortfolio] = useState(null);
   const { projectId } = useParams();
+  const [isOpen, setIsOpen] = useState(false);
+const [activeItem, setActiveItem] = useState(null);
+
+const openViewer = (item) => {
+  setActiveItem(item);
+  setIsOpen(true);
+};
+
+const closeViewer = () => {
+  setIsOpen(false);
+  setActiveItem(null);
+};
+
 
   useEffect(() => {
     const baseUrl = process.env.REACT_APP_API_BASE_URL;
@@ -86,31 +99,32 @@ const PortfolioSingleSection = () => {
   }, [portfolio]);
 
   if (!portfolio) return <p>Loading...</p>;
+const itemCount = galleryItems.length;
+const sliderSettings = {
+  className: "slider variable-width",
+  dots: true,
+  infinite: itemCount > 1,           // no looping for single item
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  arrows: itemCount > 1,             // hide arrows for single item
+  centerMode: itemCount > 1,          // center only if more than 1
+  nextArrow: <NextArrow />,
+  prevArrow: <PrevArrow />,
+  variableWidth: itemCount > 1,       // disable variable width for 1 item
 
-  const sliderSettings = {
-    className: "slider variable-width",
-    dots: true,
-    infinite: true,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: true,
-    centerMode: true,
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
-    variableWidth: true, // default (desktop/tablet)
-    responsive: [
-      {
-        breakpoint: 768, // Mobile breakpoint
-        settings: {
-          slidesToShow: 1,
-          centerMode: false,
-          variableWidth: false, // disable variable width on mobile
-        },
+  responsive: [
+    {
+      breakpoint: 768,
+      settings: {
+        slidesToShow: 1,
+        centerMode: false,
+        variableWidth: false,
+        arrows: itemCount > 1,
+        infinite: itemCount > 1,
       },
-    ],
-  };
-
-
+    },
+  ],
+};
   return (
     <section className="content">
       <div className="container">
@@ -132,7 +146,7 @@ const PortfolioSingleSection = () => {
           <Slider {...sliderSettings}>
             {galleryItems.map((item, idx) => (
               <div key={idx}>
-                <div className="gallery-item-style">
+                <div className="gallery-item-style" onClick={() => openViewer(item)}>
                   {item.isVideo ? (
                     <video
                       src={item.url}
@@ -154,7 +168,18 @@ const PortfolioSingleSection = () => {
         </div>
         {/* ... Portfolio Info section remains unchanged ... */}
         <div className="row justify-content-between">
-          <h2>{portfolio.title}</h2>
+          <h2>{portfolio.title}
+                        {portfolio.liveSite && portfolio.liveSite !== "#" && (
+                <a
+                  className="nav-link d-inline-flex swap-icon ms-4"
+                  href={portfolio.liveSite}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Live Site <i className="icon bi bi-arrow-right-short"></i>
+                </a>
+            )}
+          </h2>
           <div className="col-12 col-lg-5">
             <div className="heading">
               {portfolio.description && <p>{portfolio.description}</p>}
@@ -193,7 +218,7 @@ const PortfolioSingleSection = () => {
                 </div>
               )}
             </div>
-            {portfolio.liveSite && portfolio.liveSite !== "#" && (
+            {/* {portfolio.liveSite && portfolio.liveSite !== "#" && (
               <div className="socials item">
                 <a
                   className="nav-link d-inline-flex swap-icon ms-0"
@@ -204,7 +229,7 @@ const PortfolioSingleSection = () => {
                   Live Site <i className="icon bi bi-arrow-right-short"></i>
                 </a>
               </div>
-            )}
+            )} */}
           </div>
         </div>
       </div>
@@ -215,6 +240,29 @@ const PortfolioSingleSection = () => {
           View All <i className="icon bi bi-arrow-right-short"></i>
         </a>
       </div>
+      {isOpen && (
+  <div className="lightbox-overlay" onClick={closeViewer}>
+    <div
+      className="lightbox-content"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <button className="lightbox-close" onClick={closeViewer}>
+        ✕
+      </button>
+
+      {activeItem?.isVideo ? (
+        <video
+          src={activeItem.url}
+          controls
+          autoPlay
+        />
+      ) : (
+        <img src={activeItem.url} alt="preview" />
+      )}
+    </div>
+  </div>
+)}
+
     </section>
   );
 };
