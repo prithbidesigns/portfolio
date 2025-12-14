@@ -15,11 +15,15 @@ const Header = () => {
   const [isDarkMode, setIsDarkMode] = useState(() => {
     try {
       const storedDarkMode = localStorage.getItem("isDarkMode");
-      // If storedDarkMode is 'true', return true; if 'false', return false; otherwise default to false
-      return storedDarkMode ? JSON.parse(storedDarkMode) : false;
+      // If storedDarkMode is 'true', return true; if 'false', return false; otherwise default to true
+       if (storedDarkMode === null) {
+      return true;
+    }
+
+    return JSON.parse(storedDarkMode);
     } catch (error) {
       console.error("Failed to read isDarkMode from localStorage:", error);
-      return false; // Fallback if localStorage is not accessible
+      return true; // Fallback to dark
     }
   });
 
