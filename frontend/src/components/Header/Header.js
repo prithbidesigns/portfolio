@@ -88,6 +88,23 @@ const Header = () => {
           background: rgba(0, 0, 0, 0.25);
           border: 1px solid rgba(255, 255, 255, 0.1);
         }
+
+@media (min-width: 992px) {
+  #header .navbar {
+    min-height: 88px; /* adjust as needed */
+  }
+
+  #header .container.header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}
+  @media (max-width: 768px) {
+  .offcanvas {
+    padding-top: 1.5rem;
+  }
+}
+
       `}</style>
     <header id="header">
       <nav className="navbar navbar-expand">
