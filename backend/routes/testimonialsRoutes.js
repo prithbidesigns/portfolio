@@ -27,16 +27,22 @@ module.exports = (authenticateAdmin) => {
   
   router.post("/", authenticateAdmin, async (req, res) => {
     try {
-      const { name, position, image, content } = req.body;
+ const { name, position, image, content } = req.body;
 
-      
-      if (!name || !position || !image || !content) {
-        return res.status(400).json({
-          message: "Missing required fields: name, position, image, and content are required.",
-        });
-      }
+const imageUrl = typeof image === "object" ? image.url : image;
 
-      const newTestimonial = new Testimonial({ name, position, image, content });
+if (!name || !position || !imageUrl || !content) {
+  return res.status(400).json({
+    message: "Missing required fields: name, position, image, and content are required.",
+  });
+}
+
+const newTestimonial = new Testimonial({
+  name,
+  position,
+  image: imageUrl,
+  content,
+});
       const savedTestimonial = await newTestimonial.save();
       res.status(201).json(savedTestimonial);
     } catch (err) {
