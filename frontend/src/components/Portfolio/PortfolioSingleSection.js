@@ -67,16 +67,15 @@ const PortfolioSingleSection = () => {
   const [portfolio, setPortfolio] = useState(null);
   const { projectId } = useParams();
   const [isOpen, setIsOpen] = useState(false);
-const [activeItem, setActiveItem] = useState(null);
+const [activeIndex, setActiveIndex] = useState(0);
 
-const openViewer = (item) => {
-  setActiveItem(item);
+const openViewer = (index) => {
+  setActiveIndex(index);
   setIsOpen(true);
 };
 
 const closeViewer = () => {
   setIsOpen(false);
-  setActiveItem(null);
 };
 
 
@@ -125,6 +124,19 @@ const sliderSettings = {
     },
   ],
 };
+const modalSliderSettings = {
+  initialSlide: activeIndex, // clicked index
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  infinite: true,
+  arrows: true,
+  dots: false,
+  swipe: true,
+    nextArrow: <NextArrow />,
+  prevArrow: <PrevArrow />,
+  adaptiveHeight: true,
+};
+
   return (
     <section className="content">
       <div className="container">
@@ -146,7 +158,7 @@ const sliderSettings = {
           <Slider {...sliderSettings}>
             {galleryItems.map((item, idx) => (
               <div key={idx}>
-                <div className="gallery-item-style" onClick={() => openViewer(item)}>
+                <div className="gallery-item-style" onClick={() => openViewer(idx)}>
                   {item.isVideo ? (
                     <video
                       src={item.url}
@@ -240,29 +252,33 @@ const sliderSettings = {
           View All <i className="icon bi bi-arrow-right-short"></i>
         </a>
       </div>
-      {isOpen && (
+{isOpen && (
   <div className="lightbox-overlay" onClick={closeViewer}>
     <div
       className="lightbox-content"
       onClick={(e) => e.stopPropagation()}
     >
-      <button className="lightbox-close" onClick={closeViewer}>
-        ✕
-      </button>
-
-      {activeItem?.isVideo ? (
-        <video
-          src={activeItem.url}
-          controls
-          autoPlay
-        />
-      ) : (
-        <img src={activeItem.url} alt="preview" />
-      )}
+      <Slider {...modalSliderSettings}>
+        {galleryItems.map((item, idx) => (
+          <div key={idx} className="lightbox-slide">
+            {item.isVideo ? (
+              <video
+                src={item.url}
+                controls
+                autoPlay
+              />
+            ) : (
+              <img
+                src={item.url}
+                alt={`preview-${idx}`}
+              />
+            )}
+          </div>
+        ))}
+      </Slider>
     </div>
   </div>
 )}
-
     </section>
   );
 };

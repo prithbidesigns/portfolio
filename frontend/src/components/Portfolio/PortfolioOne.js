@@ -11,7 +11,7 @@ const PortfolioOne = () => {
     const baseUrl = process.env.REACT_APP_API_BASE_URL;
     // Fetch only the first 4 portfolio items
     axios
-      .get(`${baseUrl}/projects?limit=10`) // _limit=10 limits the results to 4 items
+      .get(`${baseUrl}/projects?limit=5`) // _limit=4 limits the results to 4 items
       .then((response) => setPortfolioItems(response.data))
       .catch((error) => console.error("Error fetching portfolio data:", error));
   }, []);

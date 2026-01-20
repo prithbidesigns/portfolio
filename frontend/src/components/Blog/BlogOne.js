@@ -56,7 +56,7 @@ const BlogOne = () => {
                             </a>
                             <div className="card-overlay top fade-down">
                                 <div className="logo">
-                                    <img src="/img/logo-author.png" alt="Logo" width={'55vw'}/>
+                                    <img src="/img/favicon.ico" alt="Logo" width={'55vw'}/>
                                 </div>
                                 <div className="post-meta d-flex flex-column ms-3">
                                     <span>Posted by</span>
