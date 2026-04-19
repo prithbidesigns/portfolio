@@ -22,6 +22,7 @@ import {
   deleteData,
 } from "./utils/adminUtility";
 import { Helmet } from "react-helmet";
+import { getApiBaseUrl } from "../utils/apiBaseUrl";
 
 const Admin = () => {
   const [token, setToken] = useState(localStorage.getItem("adminToken") || "");
@@ -47,9 +48,10 @@ const Admin = () => {
   const [editingTestimonial, setEditingTestimonial] = useState(null);
 
   const [profile, setProfile] = useState(null);
+  const lastUploadErrorRef = useRef("");
 
   const handleLogout = useCallback(async () => {
-    const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+    const BASE_URL = getApiBaseUrl();
     try {
       await fetch(`${BASE_URL}/admin/logout`, {
         method: "POST",
@@ -552,10 +554,12 @@ const Admin = () => {
 
   const handleImageUpload = async (file, folder) => {
     try {
+      lastUploadErrorRef.current = "";
       const {url, thumbnail} = await handleFileUpload(file, folder);
       setMessage("File uploaded successfully!");
       return { url, thumbnail };
     } catch (error) {
+      lastUploadErrorRef.current = error.message;
       setMessage(`Upload Error: ${error.message}`);
       return null;
     }
@@ -666,6 +670,7 @@ const Admin = () => {
             onSave={handleSaveProfile}
             onCancel={() => setView("profile")}
             onImageUpload={handleImageUpload}
+            getLastUploadError={() => lastUploadErrorRef.current}
           />
         ) : (
           <div className="admin_card">Loading profile...</div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { transformImageKitUrl } from "../utils/ImageKitUrlModify"; // Import the utility function
+import { transformMediaUrl } from "../utils/mediaUrl";
 
 import Preloader from "../components/Miscellaneous/Preloader";
 import Header from "../components/Header/Header";
@@ -24,7 +24,7 @@ const About = () => {
   useEffect(() => {
     if (profile) {
       setImgSrc(
-        transformImageKitUrl(profile?.banner, {width: 1920, height: 1200, crop: false, quality: 80, format: "auto"})
+        transformMediaUrl(profile?.banner, {width: 1920, height: 1200, crop: false, quality: 80, format: "auto"})
       );
     }
   }, [profile, loading]);

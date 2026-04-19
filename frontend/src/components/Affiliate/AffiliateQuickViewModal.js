@@ -1,7 +1,7 @@
 import React from 'react';
 import './Affiliate.css'; // Use the same CSS for consistent styling
 import MagneticButton from '../Miscellaneous/MagneticButton';
-import { transformImageKitUrl } from '../../utils/ImageKitUrlModify'; // Import the utility function
+import { transformMediaUrl } from '../../utils/mediaUrl';
 
 const AffiliateQuickViewModal = ({ affiliate, onClose }) => {
     if (!affiliate) return null; // Don't render if no affiliate data
@@ -17,7 +17,7 @@ const AffiliateQuickViewModal = ({ affiliate, onClose }) => {
                         rel="noopener noreferrer"
                         >
                     <img
-                        src={transformImageKitUrl(affiliate.logo, {width: 1200, crop: true, quality: 80, format: "auto"})}
+                        src={transformMediaUrl(affiliate.logo, {width: 1200, crop: true, quality: 80, format: "auto"})}
                         alt={affiliate.title}
                         className="logo-image"
                     />
@@ -29,7 +29,7 @@ const AffiliateQuickViewModal = ({ affiliate, onClose }) => {
 
                 <div className="modal-image-container">
                     <img
-                        src={transformImageKitUrl(affiliate.image, {width: 1200, crop: true, quality: 80, format: "auto"})}
+                        src={transformMediaUrl(affiliate.image, {width: 1200, crop: true, quality: 80, format: "auto"})}
                         alt={affiliate.title}
                         className="modal-image"
                     />

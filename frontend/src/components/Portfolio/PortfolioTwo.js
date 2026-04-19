@@ -2,8 +2,9 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import slugify from "../../utils/slungify";
-import { transformImageKitUrl } from "../../utils/ImageKitUrlModify"; // Import the utility function
+import { transformMediaUrl } from "../../utils/mediaUrl";
 import { useLocation, useNavigate } from "react-router-dom";
+import { getApiBaseUrl } from "../../utils/apiBaseUrl";
 
 const PortfolioTwo = () => {
   const [portfolioData, setportfolioData] = useState(null);
@@ -23,7 +24,7 @@ useEffect(() => {
 }, [location.search]);
 
   useEffect(() => {
-    const baseUrl = process.env.REACT_APP_API_BASE_URL;
+    const baseUrl = getApiBaseUrl();
     axios
       .get(`${baseUrl}/projects`)
       .then((response) => {
@@ -132,7 +133,7 @@ const handleFilterClick = (id) => {
                     const mobileThumbnailSrc = (() => {
                       // 1. Prioritize the dedicated smallScreen thumbnail
                       if (item.thumbnail && item.thumbnail.smallScreen) {
-                        return transformImageKitUrl(item.thumbnail.smallScreen, {
+                        return transformMediaUrl(item.thumbnail.smallScreen, {
                           width: 384,
                           height: 512,
                           crop: true,
@@ -142,7 +143,7 @@ const handleFilterClick = (id) => {
                       }
                       // 2. Fallback to largeScreen thumbnail if smallScreen is not available
                       else if (item.thumbnail && item.thumbnail.largeScreen) {
-                        return transformImageKitUrl(item.thumbnail.largeScreen, {
+                        return transformMediaUrl(item.thumbnail.largeScreen, {
                           width: 384,
                           height: 512,
                           crop: true,
@@ -154,7 +155,7 @@ const handleFilterClick = (id) => {
                       else if (item.gallery && item.gallery.length > 0) {
                         const firstGalleryItem = item.gallery[0];
                         const gallerySrc = firstGalleryItem.url; // Use thumbnail if exists
-                        return transformImageKitUrl(gallerySrc, {
+                        return transformMediaUrl(gallerySrc, {
                           width: 384,
                           height: 512,
                           crop: true,

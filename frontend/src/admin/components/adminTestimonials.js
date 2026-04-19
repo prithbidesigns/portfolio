@@ -61,7 +61,7 @@ export const TestimonialForm = ({ testimonial, onSave, onCancel, onImageUpload }
     const file = e.target.files[0];
     const uploadedUrl = await onImageUpload(file, 'testimonials');
     if (uploadedUrl) {
-      setFormData((prev) => ({ ...prev, image: uploadedUrl }));
+      setFormData((prev) => ({ ...prev, image: uploadedUrl.url }));
     }
   };
 

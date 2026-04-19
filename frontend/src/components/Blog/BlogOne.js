@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { transformImageKitUrl } from '../../utils/ImageKitUrlModify'; // Import the utility function
+import { transformMediaUrl } from '../../utils/mediaUrl';
+import { getApiBaseUrl } from '../../utils/apiBaseUrl';
 
 const BlogOne = () => {
     const [blogs, setBlogs] = useState([]);
     const [isLoading, setIsLoading] = useState(true); // Add a loading state
 
     useEffect(() => {
-        const baseUrl = process.env.REACT_APP_API_BASE_URL;
+        const baseUrl = getApiBaseUrl();
         // Fetch data from the API when the component mounts
         axios.get(`${baseUrl}/blogs?limit=3`)
         .then(response => {
@@ -49,7 +50,7 @@ const BlogOne = () => {
                             <a className="card-thumb" href={blog.link} target="_blank" rel="noopener noreferrer">
                                 <picture>
                                     <img
-                                    src={transformImageKitUrl(blog.image, {width: 768, height: 1024, crop: true, quality: 80, format: "auto"})}
+                                    src={transformMediaUrl(blog.image, {width: 768, height: 1024, crop: true, quality: 80, format: "auto"})}
                                     alt={blog.title}
                                     />
                                 </picture>

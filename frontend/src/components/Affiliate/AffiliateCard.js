@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Affiliate.css'; // Import the CSS
-import { transformImageKitUrl } from '../../utils/ImageKitUrlModify'; // Import the utility function
+import { transformMediaUrl } from '../../utils/mediaUrl';
 
 const AffiliateCard = ({ affiliate, onQuickView }) => { // Added onQuickView prop
     const [showFullDescription, setShowFullDescription] = useState(false);
@@ -23,7 +23,7 @@ const AffiliateCard = ({ affiliate, onQuickView }) => { // Added onQuickView pro
     return (
         <article className="affiliate-card">
             <div className="rounded-lg affiliate-image-container">
-                <img src={transformImageKitUrl(affiliate.image, {width: 800, crop: true, quality: 80, format: "auto"})} alt={affiliate.title} className="affiliate-image" onClick={handleCardClick}/>
+                <img src={transformMediaUrl(affiliate.image, {width: 800, crop: true, quality: 80, format: "auto"})} alt={affiliate.title} className="affiliate-image" onClick={handleCardClick}/>
             </div>
             <div className="affiliate-info">
                 <div className="affiliate-title-link-wrapper">

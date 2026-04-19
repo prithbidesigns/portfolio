@@ -3,6 +3,7 @@ import axios from 'axios';
 import AffiliateCard from './AffiliateCard';
 import AffiliateQuickViewModal from './AffiliateQuickViewModal'; // Import the new modal component
 import './Affiliate.css'; // Import the CSS
+import { getApiBaseUrl } from '../../utils/apiBaseUrl';
 
 const AffiliateSection = () => {
     const [affiliates, setAffiliates] = useState([]);
@@ -15,7 +16,7 @@ const AffiliateSection = () => {
 
     // Memoized function to fetch affiliates
     const fetchAffiliates = useCallback(async () => {
-        const baseUrl = process.env.REACT_APP_API_BASE_URL;
+        const baseUrl = getApiBaseUrl();
         setLoading(true);
         setError(null);
         try {

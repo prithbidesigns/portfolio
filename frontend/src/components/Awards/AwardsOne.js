@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { getApiBaseUrl } from "../../utils/apiBaseUrl";
 
 const AwardsOne = () => {
     const [awardsData, setAwardsData] = useState([]); // Initialize as an empty array
@@ -7,7 +8,7 @@ const AwardsOne = () => {
     const [error, setError] = useState(null); // Add an error state
 
     useEffect(() => {
-        const baseUrl = process.env.REACT_APP_API_BASE_URL;
+        const baseUrl = getApiBaseUrl();
         axios
             .get(`${baseUrl}/awards?limit=5`)
             .then((response) => {

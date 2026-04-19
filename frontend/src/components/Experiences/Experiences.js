@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'; // Don't forget to import axios
+import { getApiBaseUrl } from '../../utils/apiBaseUrl';
 
 const Experiences = () => {
     const [experiences, setExperiences] = useState([]);
@@ -7,7 +8,7 @@ const Experiences = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const baseUrl = process.env.REACT_APP_API_BASE_URL;
+        const baseUrl = getApiBaseUrl();
         axios
             .get(`${baseUrl}/experiences`)
             .then((response) => {

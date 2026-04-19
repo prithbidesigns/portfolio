@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'; // Fixed import syntax
 import { Helmet } from 'react-helmet'; // For managing head tags
+import { transformMediaUrl } from '../utils/mediaUrl';
+import { getApiBaseUrl } from '../utils/apiBaseUrl';
 
 const SubscribeForm = () => {
   // Removed lastName from formData state
@@ -11,9 +13,14 @@ const SubscribeForm = () => {
   const [messageText, setMessageText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  // Define your logo and banner URLs here
-  const LOGO_URL = "https://ik.imagekit.io/upzxi2yzb/tr:w-800,q-100,fo-auto/profile/Asset_4_ucSXtHMrz.svg";
-  const BANNER_URL = "https://ik.imagekit.io/upzxi2yzb/tr:w-800,q-100,fo-auto/Mail%20Subscribe%20Assets/subscribe-banner.png";
+  const LOGO_URL = transformMediaUrl(
+    process.env.REACT_APP_SITE_LOGO_URL || '/img/logo.png',
+    { width: 800, quality: 100, format: 'auto' }
+  );
+  const BANNER_URL = transformMediaUrl(
+    process.env.REACT_APP_SUBSCRIBE_BANNER_URL || '',
+    { width: 1200, quality: 90, format: 'auto' }
+  );
 
   // New useEffect to read email from URL query parameter
   useEffect(() => {
@@ -52,7 +59,7 @@ const SubscribeForm = () => {
     e.preventDefault(); // Prevent default browser form submission
     setIsLoading(true); // Set loading state to true
 
-    const baseUrl = process.env.REACT_APP_API_BASE_URL || ''; // Ensure baseUrl is defined
+    const baseUrl = getApiBaseUrl();
 
     try {
       const response = await fetch(`${baseUrl}/email/subscribe`, {
@@ -290,7 +297,9 @@ const SubscribeForm = () => {
       <style>{customStyles}</style>
       <div className="card">
         {/* Banner at the very top of the card */}
-        <img src={BANNER_URL} alt="prithbidesigns Banner" className="card__banner" />
+        {BANNER_URL && (
+          <img src={BANNER_URL} alt="prithbidesigns Banner" className="card__banner" />
+        )}
 
         <div className="card__header">
           {/* Logo and title side-by-side */}

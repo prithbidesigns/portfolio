@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
+import { getApiBaseUrl } from "../../utils/apiBaseUrl";
 
 const SkillsSection = () => {
   const [skillsData, setSkillsData] = useState(null);
   const skillsRef = useRef(null);
 
   useEffect(() => {
-    const baseUrl = process.env.REACT_APP_API_BASE_URL;
+    const baseUrl = getApiBaseUrl();
     axios
       .get(`${baseUrl}/skills`)
       .then((response) => {

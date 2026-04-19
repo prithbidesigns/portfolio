@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
-import { transformImageKitUrl } from '../../utils/ImageKitUrlModify'; // Import the utility function
+import { transformMediaUrl } from '../../utils/mediaUrl';
 import ExpandableText from './ExpandableText'; //
+import { getApiBaseUrl } from '../../utils/apiBaseUrl';
 
 const Testimonial = () => {
   const [testimonials, setTestimonials] = useState([]);
@@ -10,7 +11,7 @@ const Testimonial = () => {
   const swiperRef = useRef(null);
 
   useEffect(() => {
-    const baseUrl = process.env.REACT_APP_API_BASE_URL;
+    const baseUrl = getApiBaseUrl();
     axios
       .get(`${baseUrl}/testimonials`)
       .then((response) => {
@@ -137,7 +138,7 @@ const Testimonial = () => {
                          <div className="testimonial-thumb">
                            <img
                              className="rounded-circle"
-                             src={transformImageKitUrl(testimonial.image, {width: 800, crop: true, quality: 80, format: "auto"})}
+                             src={transformMediaUrl(testimonial.image, {width: 800, crop: true, quality: 80, format: "auto"})}
                              alt={testimonial.name}
                              style={{ opacity: 0 }}
                            />

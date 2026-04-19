@@ -1,16 +1,11 @@
 const getAutoReplyTemplate = ({ name, email, message }) => {
-  const LOGO_URL =
-    "https://ik.imagekit.io/tr:w-800,q-100,fo-auto/upzxi2yzb/profile/main-logo-email.png";
-  const BANNER_URL =
-    "https://ik.imagekit.io/upzxi2yzb/tr:w-800,q-100,fo-auto/Mail%20Subscribe%20Assets/email-banner.png";
-  const BRAND_COLOR = "#007bff";
-  const NOTIFICATION_ICON_URL =
-    "https://ik.imagekit.io/upzxi2yzb/tr:w-50,q-80,fo-auto/Mail%20Subscribe%20Assets/ktcvml64rklcd0tiigpg.png";
-  const CANCEL_BELL_ICON_URL =
-    "https://ik.imagekit.io/upzxi2yzb/tr:w-50,q-80,fo-auto/Mail%20Subscribe%20Assets/w8eutv6bbtoafj80u7fj.png";
+  const WEBSITE_URL = (process.env.WEBSITE_URL || "https://prithbidesigns.com/").replace(
+    /\/?$/,
+    "/"
+  );
+  const LOGO_URL = process.env.EMAIL_LOGO_URL || `${WEBSITE_URL}img/logo.png`;
   const INSTAGRAM_URL = "https://www.instagram.com/prithbi0018/";
   const LINKEDIN_URL = "https://www.linkedin.com/in/prithbidesigns/";
-  const WEBSITE_URL = "https://prithbidesigns.com/";
   const SUPPORT_EMAIL = "connect@prithbidesigns.com";
   const SUBSCRIBE_URL = `${WEBSITE_URL}subscribe?email=${encodeURIComponent(
     email || ""
@@ -30,20 +25,15 @@ const getAutoReplyTemplate = ({ name, email, message }) => {
                     </a>
                 </td>
                 <td style="padding: 15px 25px 15px 0px; text-align: right; vertical-align: middle;">
-                    <!-- Subscribe and Unsubscribe Icons on the right -->
-                    <a href="${SUBSCRIBE_URL}" target="_blank" rel="noopener noreferrer" style="display: inline-block; margin-left: 15px;">
-                        <img src="${NOTIFICATION_ICON_URL}" alt="Subscribe" style="width: 24px; height: 24px; vertical-align: middle;">
+                    <a href="${SUBSCRIBE_URL}" target="_blank" rel="noopener noreferrer" style="display: inline-block; margin-left: 15px; color: #333333; font-size: 13px; text-decoration: none; font-weight: 600;">
+                        Subscribe
                     </a>
-                    <a href="${UNSUBSCRIBE_URL}" target="_blank" rel="noopener noreferrer" style="display: inline-block; margin-left: 15px;">
-                        <img src="${CANCEL_BELL_ICON_URL}" alt="Unsubscribe" style="width: 24px; height: 24px; vertical-align: middle;">
+                    <a href="${UNSUBSCRIBE_URL}" target="_blank" rel="noopener noreferrer" style="display: inline-block; margin-left: 15px; color: #333333; font-size: 13px; text-decoration: none; font-weight: 600;">
+                        Unsubscribe
                     </a>
                 </td>
             </tr>
         </table>
-        <!-- Banner 
-        <div style="text-align: center; line-height: 0;">
-            <img src="${BANNER_URL}" alt="Welcome Banner" style="width: 100%; height: auto; display: block;">
-        </div> -->
         <!-- Main Content -->
         <div style="padding: 30px;">
             <p style="font-size: 16px; line-height: 1.6; color: #333333;">Hi ${name},</p>

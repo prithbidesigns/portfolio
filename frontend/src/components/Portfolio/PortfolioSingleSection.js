@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useMemo } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { transformImageKitUrl } from "../../utils/ImageKitUrlModify";
+import { transformMediaUrl } from "../../utils/mediaUrl";
 import "./portfolio.css";
+import { getApiBaseUrl } from "../../utils/apiBaseUrl";
 
 // Import react-slick and its styles
 import Slider from "react-slick";
@@ -80,7 +81,7 @@ const closeViewer = () => {
 
 
   useEffect(() => {
-    const baseUrl = process.env.REACT_APP_API_BASE_URL;
+    const baseUrl = getApiBaseUrl();
     axios
       .get(`${baseUrl}/projects/${projectId}`)
       .then((res) => setPortfolio(res.data))
@@ -169,7 +170,7 @@ const modalSliderSettings = {
                     />
                   ) : (
                     <img
-                      src={transformImageKitUrl(item.url, { height: 600 })}
+                      src={transformMediaUrl(item.url, { height: 600 })}
                       alt={`slide-${idx}`}
                     />
                   )}

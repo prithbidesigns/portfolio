@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { getApiBaseUrl } from "../../utils/apiBaseUrl";
 
 const SubscribeFooter = () => {
   const [formData, setFormData] = useState({ email: "" });
@@ -28,7 +29,7 @@ const SubscribeFooter = () => {
     setMessage(null); // Clear previous messages
 
     // Use a default base URL if REACT_APP_API_BASE_URL is not set
-    const baseUrl = process.env.REACT_APP_API_BASE_URL;
+    const baseUrl = getApiBaseUrl();
 
     try {
       const response = await fetch(`${baseUrl}/email/subscribe`, {

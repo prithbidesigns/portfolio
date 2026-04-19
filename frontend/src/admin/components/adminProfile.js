@@ -8,7 +8,13 @@ const emptyServiceItem = { title: "", description: "" };
 const emptyServiceSection = { title: "", subtitle: "", serviceItem: [] }; // The structure for a single services section
 const emptySocial = { Name: "", Link: "", Icon: "" }; // New empty state for social
 
-export const AdminProfile = ({ profile, onSave, onCancel, onImageUpload }) => {
+export const AdminProfile = ({
+    profile,
+    onSave,
+    onCancel,
+    onImageUpload,
+    getLastUploadError = () => "",
+}) => {
     const [formData, setFormData] = useState({
         name: "",
         description: "",
@@ -246,7 +252,12 @@ export const AdminProfile = ({ profile, onSave, onCancel, onImageUpload }) => {
                 if (file) {
                     const uploadData = await onImageUpload(file, "profile"); // Assuming 'profile' is a folder name or category
                     if (!uploadData) {
-                        alert(`Failed to upload ${field}. Please try again.`);
+                        const uploadErrorMessage = getLastUploadError();
+                        alert(
+                            uploadErrorMessage
+                                ? `Failed to upload ${field}: ${uploadErrorMessage}`
+                                : `Failed to upload ${field}. Please try again.`
+                        );
                         return formData[field]; // Keep the old URL or current preview if upload fails
                     }
                     return uploadData.url;
@@ -266,7 +277,12 @@ export const AdminProfile = ({ profile, onSave, onCancel, onImageUpload }) => {
                 if (file) {
                     const uploadData = await onImageUpload(file, "social-icons"); // Assuming "social-icons" is a folder for these
                     if (!uploadData) {
-                        alert(`Failed to upload icon for ${social.Name}. Please try again.`);
+                        const uploadErrorMessage = getLastUploadError();
+                        alert(
+                            uploadErrorMessage
+                                ? `Failed to upload icon for ${social.Name}: ${uploadErrorMessage}`
+                                : `Failed to upload icon for ${social.Name}. Please try again.`
+                        );
                     } else {
                         newIconUrl = uploadData.url;
                     }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import SubscribeFooter from './subscribeFooter';
 import { useProfile } from '../../context/profileContext';
 import { menuItems, socialLinks, resourceLinks } from "../Header/menuConfig";
-import { transformImageKitUrl } from '../../utils/ImageKitUrlModify'; // Import the utility function
+import { transformMediaUrl } from '../../utils/mediaUrl';
 
 const Footer = ({
   className = "footer-area",
@@ -23,7 +23,7 @@ const Footer = ({
 
   useEffect(() => {
     const chosenLogo =
-      transformImageKitUrl(profile?.logoDark, {width: 800, quality: 80, format: "auto"}) ||
+      transformMediaUrl(profile?.logoDark, {width: 800, quality: 80, format: "auto"}) ||
       defaultLogoSrc;
     setFooterDisplayLogoSrc(chosenLogo);
 

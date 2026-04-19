@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { menuItems } from "./menuConfig";
 import { useProfile } from "../../context/profileContext";
 import Preloader from "../Miscellaneous/Preloader";
-import { transformImageKitUrl } from "../../utils/ImageKitUrlModify"; // Import the utility function
+import { transformMediaUrl } from "../../utils/mediaUrl";
 
 const Header = () => {
   const location = useLocation();
@@ -53,11 +53,11 @@ const Header = () => {
     }
     if (profile) {
       setLogoLight(
-        transformImageKitUrl(profile?.logoLight, {width: 800, quality: 80, format: "auto"})
+        transformMediaUrl(profile?.logoLight, {width: 800, quality: 80, format: "auto"})
          || "/img/logo-light.png"
       );
       setLogoDark(
-        transformImageKitUrl(profile?.logoDark, {width: 800, quality: 80, format: "auto"}) ||
+        transformMediaUrl(profile?.logoDark, {width: 800, quality: 80, format: "auto"}) ||
           "/img/logo-dark.png"
       );
       if (profile?.resume) {

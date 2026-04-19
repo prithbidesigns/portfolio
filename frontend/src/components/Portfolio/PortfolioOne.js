@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 // import { Link } from "react-router-dom"; // No longer needed if using <a> for full refresh
 import axios from "axios";
 import slugify from "../../utils/slungify";
-import { transformImageKitUrl } from "../../utils/ImageKitUrlModify"; // Import the utility function
+import { transformMediaUrl } from "../../utils/mediaUrl";
+import { getApiBaseUrl } from "../../utils/apiBaseUrl";
 
 const PortfolioOne = () => {
   const [portfolioItems, setPortfolioItems] = useState([]);
 
   useEffect(() => {
-    const baseUrl = process.env.REACT_APP_API_BASE_URL;
+    const baseUrl = getApiBaseUrl();
     // Fetch only the first 4 portfolio items
     axios
       .get(`${baseUrl}/projects?limit=5`) // _limit=4 limits the results to 4 items
@@ -46,7 +47,7 @@ const getPortfolioLink = (item) => {
 
                     // --- Determine largeScreenSrc ---
                     if (item.thumbnail && item.thumbnail.largeScreen) {
-                      largeScreenSrc = transformImageKitUrl(item.thumbnail.largeScreen, {
+                      largeScreenSrc = transformMediaUrl(item.thumbnail.largeScreen, {
                         width: 960,
                         height: 540,
                         crop: true,
@@ -55,7 +56,7 @@ const getPortfolioLink = (item) => {
                       });
                     } else if (item.thumbnail && item.thumbnail.smallScreen) {
                       // Fallback to smallScreen thumbnail if largeScreen not available
-                      largeScreenSrc = transformImageKitUrl(item.thumbnail.smallScreen, {
+                      largeScreenSrc = transformMediaUrl(item.thumbnail.smallScreen, {
                         width: 960,
                         height: 540,
                         crop: true,
@@ -66,7 +67,7 @@ const getPortfolioLink = (item) => {
                       // Fallback to first gallery image object
                       const firstGalleryItem = item.gallery[0];
                       const gallerySrc = firstGalleryItem.url;
-                      largeScreenSrc = transformImageKitUrl(gallerySrc, {
+                      largeScreenSrc = transformMediaUrl(gallerySrc, {
                         width: 960,
                         height: 540,
                         crop: true,
@@ -80,7 +81,7 @@ const getPortfolioLink = (item) => {
 
                     // --- Determine smallScreenSrc ---
                     if (item.thumbnail && item.thumbnail.smallScreen) {
-                      smallScreenSrc = transformImageKitUrl(item.thumbnail.smallScreen, {
+                      smallScreenSrc = transformMediaUrl(item.thumbnail.smallScreen, {
                         width: 384,
                         height: 512,
                         crop: true,
@@ -89,7 +90,7 @@ const getPortfolioLink = (item) => {
                       });
                     } else if (item.thumbnail && item.thumbnail.largeScreen) {
                       // Fallback to largeScreen thumbnail if smallScreen not available
-                      smallScreenSrc = transformImageKitUrl(item.thumbnail.largeScreen, {
+                      smallScreenSrc = transformMediaUrl(item.thumbnail.largeScreen, {
                         width: 384,
                         height: 512,
                         crop: true,
@@ -100,7 +101,7 @@ const getPortfolioLink = (item) => {
                       // Fallback to first gallery image object
                       const firstGalleryItem = item.gallery[0];
                       const gallerySrc = firstGalleryItem.url;
-                      smallScreenSrc = transformImageKitUrl(gallerySrc, {
+                      smallScreenSrc = transformMediaUrl(gallerySrc, {
                         width: 384,
                         height: 512,
                         crop: true,

@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useProfile } from '../../context/profileContext';
 import Preloader from '../Miscellaneous/Preloader';
-import { transformImageKitUrl } from '../../utils/ImageKitUrlModify'; // Import the utility function
+import { transformMediaUrl } from '../../utils/mediaUrl';
 
 const BreadcrumbOne = () => {
   const { profile, loading } = useProfile();
@@ -34,7 +34,7 @@ const BreadcrumbOne = () => {
             <div className="content d-flex flex-column justify-content-between">
               <div className="heading w-60">
                 <h1 className="title">
-                  {breadcrumbContent.title} <img src={transformImageKitUrl(breadcrumbContent.imageSrc, {width: 800, crop: true, quality: 80, format: "auto"})} alt="Photographer" />
+                  {breadcrumbContent.title} <img src={transformMediaUrl(breadcrumbContent.imageSrc, {width: 800, crop: true, quality: 80, format: "auto"})} alt="Photographer" />
                 </h1>
                 <div className="flex ms-auto">
                   <span className="line animate-line my-3 my-md-0"></span>

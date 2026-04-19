@@ -6,8 +6,8 @@ const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 require("dotenv").config();
 
-// New, more secure upload routes
-const imageKitUploadRoutes = require("./routes/imageKitUploadRoutes");
+// Media upload routes
+const cloudinaryUploadRoutes = require("./routes/cloudinaryUploadRoutes");
 
 // Routes
 const projectRoutes = require("./routes/projectRoutes");
@@ -124,7 +124,7 @@ app.use("/api/clients", clientsRoutes(authenticateAdmin));
 app.use("/api/experiences", experiencesRoutes(authenticateAdmin));
 app.use("/api/affiliates", affiliatesRoutes(authenticateAdmin));
 app.use("/api/testimonials", testimonialsRoutes(authenticateAdmin));
-app.use("/api/uploads", imageKitUploadRoutes(authenticateAdmin));
+app.use("/api/uploads", cloudinaryUploadRoutes(authenticateAdmin));
 
 // Public Routes
 app.use("/api/email", emailRoutes());

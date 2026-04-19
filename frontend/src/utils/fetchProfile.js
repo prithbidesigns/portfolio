@@ -1,8 +1,9 @@
 // utils/fetchProfile.js
 import axios from "axios";
+import { getApiBaseUrl } from "./apiBaseUrl";
 
 export const fetchProfile = async () => {
-  const baseUrl = process.env.REACT_APP_API_BASE_URL;
+  const baseUrl = getApiBaseUrl();
 
   try {
     const response = await axios.get(`${baseUrl}/profile`);

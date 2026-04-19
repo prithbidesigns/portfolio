@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MagneticButton from "../Miscellaneous/MagneticButton";
 import { useProfile } from "../../context/profileContext";
+import { getApiBaseUrl } from "../../utils/apiBaseUrl";
 
 const Form = () => {
   const { profile } = useProfile();
@@ -114,7 +115,7 @@ const Form = () => {
       return;
     }
 
-    const baseUrl = process.env.REACT_APP_API_BASE_URL;
+    const baseUrl = getApiBaseUrl();
 
     try {
       const response = await fetch(`${baseUrl}/email/send-support`, {

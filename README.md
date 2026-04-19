@@ -5,13 +5,13 @@
 ![Express.js](https://img.shields.io/badge/express.js-black?logo=express&logoColor=white)
 ![React](https://img.shields.io/badge/react-61DAFB?logo=react&logoColor=black)
 ![MongoDB](https://img.shields.io/badge/mongodb-47A248?logo=mongodb&logoColor=white)
-![ImageKit](https://img.shields.io/badge/imagekit-1D4ED8?logo=icloud&logoColor=white)
+![Cloudinary](https://img.shields.io/badge/cloudinary-3448C5?logo=cloudinary&logoColor=white)
 ![Mailchimp](https://img.shields.io/badge/mailchimp-FFE01B?logo=mailchimp&logoColor=black)
 
 🚀 **Live Demo:** [prithbidesigns.com](https://prithbidesigns.com/)
 
 A dynamic portfolio showcasing **Full Stack Development**, **UI/UX Design**, **Motion Graphics**, and **Affiliate Marketing** projects by me, **Prithbiraj Panda**.  
-Built with **Docker, Node.js/Express, MongoDB, React.js, ImageKit**, and integrated with **Mailchimp** for email marketing.  
+Built with **Docker, Node.js/Express, MongoDB, React.js, Cloudinary**, and integrated with **Mailchimp** for email marketing.  
 Explore innovative web solutions, engaging user experiences, and impactful branding work — all crafted to drive results.
 
 ---
@@ -20,7 +20,7 @@ Explore innovative web solutions, engaging user experiences, and impactful brand
 - Full Stack Development with **Node.js + Express.js**
 - **React.js** frontend for fast, interactive UI
 - **MongoDB** backend for scalable data management
-- **ImageKit** for image optimization & DRM
+- **Cloudinary** for media storage and transformations
 - **Mailchimp** integration for email campaigns
 - **Admin panel** for portfolio content management
 - **Dockerized** for deployment & scalability
@@ -34,7 +34,7 @@ Explore innovative web solutions, engaging user experiences, and impactful brand
 **Backend:** Node.js, Express.js, MongoDB  
 **Email & Marketing:** SMTP, Mailchimp API  
 **DevOps & Deployment:** Docker, Nginx  
-**Media & Optimization:** ImageKit  
+**Media & Optimization:** Cloudinary  
 **Version Control:** Git & GitHub
 
 ---
@@ -90,16 +90,18 @@ MAILCHIMP_LIST_ID=your-list-id
 ADMIN_USERNAME=admin
 ADMIN_PASSWORD_HASH=your-hashed-password
 
-IMAGEKIT_PUBLIC_KEY=your-imagekit-public-key
-IMAGEKIT_PRIVATE_KEY=your-imagekit-private-key
-IMAGEKIT_URL_ENDPOINT=https://ik.imagekit.io/your-endpoint
+CLOUDINARY_CLOUD_NAME=your-cloud-name
+CLOUDINARY_API_KEY=your-cloudinary-api-key
+CLOUDINARY_API_SECRET=your-cloudinary-api-secret
 ````
 
 ### Frontend `.env.example`
 
 ```bash
 REACT_APP_API_BASE_URL=http://localhost:5000/api
-REACT_APP_IMAGEKIT_PUBLIC_API_KEY=your-imagekit-public-key
+REACT_APP_SITE_LOGO_URL=https://res.cloudinary.com/your-cloud-name/image/upload/v123/profile/logo.png
+REACT_APP_SUBSCRIBE_BANNER_URL=https://res.cloudinary.com/your-cloud-name/image/upload/v123/email/subscribe-banner.png
+REACT_APP_UNSUBSCRIBE_BANNER_URL=https://res.cloudinary.com/your-cloud-name/image/upload/v123/email/unsubscribe-banner.png
 ```
 
 **Setup:**
