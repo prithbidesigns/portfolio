@@ -78,3 +78,40 @@ export function transformMediaUrl(url, options = {}) {
 
   return url;
 }
+
+export function getVideoPosterUrl(
+  url,
+  fallbackUrl = "",
+  {
+    width = 900,
+    height = 1600,
+    quality = "auto",
+    crop = "fit",
+    startOffset = "50p",
+  } = {}
+) {
+  if (
+    !url ||
+    typeof url !== "string" ||
+    !url.includes("res.cloudinary.com") ||
+    !url.includes("/video/upload/")
+  ) {
+    return fallbackUrl || url;
+  }
+
+  const transformations = [
+    `so_${startOffset}`,
+    `c_${crop}`,
+    `w_${width}`,
+    `h_${height}`,
+    `q_${quality}`,
+    "f_jpg",
+  ];
+
+  const transformedUrl = url.replace(
+    "/upload/",
+    `/upload/${transformations.join(",")}/`
+  );
+
+  return transformedUrl.replace(/\.([a-z0-9]+)(\?.*)?$/i, ".jpg$2");
+}

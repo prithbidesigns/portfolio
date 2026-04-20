@@ -59,9 +59,9 @@ const getThumbnailUrl = (uploadResult) => {
       resource_type: "video",
       format: "jpg",
       start_offset: "50p",
-      width: 800,
-      height: 450,
-      crop: "fill",
+      width: 900,
+      height: 1600,
+      crop: "fit",
       quality: "auto",
     });
   }

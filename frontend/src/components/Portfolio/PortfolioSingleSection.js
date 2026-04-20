@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { transformMediaUrl } from "../../utils/mediaUrl";
+import { getVideoPosterUrl, transformMediaUrl } from "../../utils/mediaUrl";
 import "./portfolio.css";
 import { getApiBaseUrl } from "../../utils/apiBaseUrl";
 
@@ -9,6 +9,32 @@ import { getApiBaseUrl } from "../../utils/apiBaseUrl";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
+const ArrowIcon = ({ direction }) => {
+  const isNext = direction === "next";
+
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      aria-hidden="true"
+      style={{
+        display: "block",
+        transform: isNext ? "translateX(1px)" : "translateX(-1px)",
+      }}
+    >
+      <path
+        d={isNext ? "M4 10H13M10 6L14 10L10 14" : "M16 10H7M10 6L6 10L10 14"}
+        fill="none"
+        stroke="#222222"
+        strokeWidth="1.9"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
 
 // Custom Next Arrow Component
 const NextArrow = ({ className, style, onClick, isDarkMode }) => {
@@ -19,20 +45,21 @@ const NextArrow = ({ className, style, onClick, isDarkMode }) => {
         ...style,
         right: "25px",
         zIndex: 1,
-        background: "var(--arrow-bg-color)", // background variable
+        background: "#ffffff",
+        border: "1px solid rgba(255, 255, 255, 0.95)",
+        boxShadow: "0 8px 18px rgba(0, 0, 0, 0.22)",
         borderRadius: "50%",
-        height: "40px",
-        width: "40px",
+        height: "42px",
+        width: "42px",
+        lineHeight: 1,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        padding: 0,
       }}
       onClick={onClick}
     >
-      <i
-        className="bi bi-arrow-right-short"
-        style={{ color: "var(--arrow-icon-color)" }} // ✅ use arrow icon variable
-      ></i>
+      <ArrowIcon direction="next" />
     </div>
   );
 };
@@ -46,20 +73,21 @@ const PrevArrow = ({ className, style, onClick, isDarkMode }) => {
         ...style,
         left: "25px",
         zIndex: 1,
-        background: "var(--arrow-bg-color)", // background variable
+        background: "#ffffff",
+        border: "1px solid rgba(255, 255, 255, 0.95)",
+        boxShadow: "0 8px 18px rgba(0, 0, 0, 0.22)",
         borderRadius: "50%",
-        height: "40px",
-        width: "40px",
+        height: "42px",
+        width: "42px",
+        lineHeight: 1,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        padding: 0,
       }}
       onClick={onClick}
     >
-      <i
-        className="bi bi-arrow-left-short"
-        style={{ color: "var(--arrow-icon-color)" }} // ✅ use arrow icon variable
-      ></i>
+      <ArrowIcon direction="prev" />
     </div>
   );
 };
@@ -68,16 +96,59 @@ const PortfolioSingleSection = () => {
   const [portfolio, setPortfolio] = useState(null);
   const { projectId } = useParams();
   const [isOpen, setIsOpen] = useState(false);
-const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const galleryContainerRef = useRef(null);
+  const lightboxContentRef = useRef(null);
 
-const openViewer = (index) => {
-  setActiveIndex(index);
-  setIsOpen(true);
-};
+  const openViewer = (index) => {
+    setActiveIndex(index);
+    setIsOpen(true);
+  };
 
-const closeViewer = () => {
-  setIsOpen(false);
-};
+  const pauseGalleryVideos = useCallback(() => {
+    const galleryVideos =
+      galleryContainerRef.current?.querySelectorAll("video") || [];
+
+    galleryVideos.forEach((video) => {
+      video.pause();
+    });
+  }, []);
+
+  const closeViewer = useCallback(() => {
+    pauseGalleryVideos();
+    const lightboxVideos =
+      lightboxContentRef.current?.querySelectorAll("video") || [];
+    lightboxVideos.forEach((video) => video.pause());
+    setIsOpen(false);
+  }, [pauseGalleryVideos]);
+
+  const pauseLightboxVideos = useCallback((exceptVideo = null) => {
+    const lightboxVideos =
+      lightboxContentRef.current?.querySelectorAll("video") || [];
+
+    lightboxVideos.forEach((video) => {
+      if (video === exceptVideo) return;
+      video.pause();
+    });
+  }, []);
+
+  const playCurrentLightboxVideo = useCallback(() => {
+    const currentVideo =
+      lightboxContentRef.current?.querySelector(".slick-current video");
+
+    if (!currentVideo) return;
+
+    pauseLightboxVideos(currentVideo);
+    const playPromise = currentVideo.play();
+    if (playPromise?.catch) {
+      playPromise.catch(() => {});
+    }
+  }, [pauseLightboxVideos]);
+
+  const handleLightboxVideoPlay = (event) => {
+    pauseGalleryVideos();
+    pauseLightboxVideos(event.currentTarget);
+  };
 
 
   useEffect(() => {
@@ -88,55 +159,102 @@ const closeViewer = () => {
       .catch((err) => console.error(err));
   }, [projectId]);
 
+  useEffect(() => {
+    if (!isOpen) {
+      document.body.style.overflow = "";
+      pauseLightboxVideos();
+      return undefined;
+    }
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        closeViewer();
+      }
+    };
+
+    document.body.style.overflow = "hidden";
+    pauseGalleryVideos();
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [closeViewer, isOpen, pauseGalleryVideos, pauseLightboxVideos]);
+
   const galleryItems = useMemo(() => {
     if (!portfolio?.gallery || portfolio.gallery.length === 0) return [];
 
     return portfolio.gallery.map((item) => ({
       url: item.url,
-      thumbnail: item.thumbnail || item.url,
+      thumbnail: getVideoPosterUrl(item.url, item.thumbnail || item.url),
       isVideo: item.url.endsWith(".mp4") || item.url.includes("video"),
     }));
   }, [portfolio]);
 
-  if (!portfolio) return <p>Loading...</p>;
-const itemCount = galleryItems.length;
-const sliderSettings = {
-  className: "slider variable-width",
-  dots: true,
-  infinite: itemCount > 1,           // no looping for single item
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  arrows: itemCount > 1,             // hide arrows for single item
-  centerMode: itemCount > 1,          // center only if more than 1
-  nextArrow: <NextArrow />,
-  prevArrow: <PrevArrow />,
-  variableWidth: itemCount > 1,       // disable variable width for 1 item
+  useEffect(() => {
+    if (!isOpen) return;
 
-  responsive: [
-    {
-      breakpoint: 768,
-      settings: {
-        slidesToShow: 1,
-        centerMode: false,
-        variableWidth: false,
-        arrows: itemCount > 1,
-        infinite: itemCount > 1,
-      },
-    },
-  ],
-};
-const modalSliderSettings = {
-  initialSlide: activeIndex, // clicked index
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  infinite: true,
-  arrows: true,
-  dots: false,
-  swipe: true,
+    const activeItem = galleryItems[activeIndex];
+    pauseLightboxVideos();
+    if (!activeItem?.isVideo) return undefined;
+
+    const frame = window.requestAnimationFrame(() => {
+      playCurrentLightboxVideo();
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [activeIndex, galleryItems, isOpen, pauseLightboxVideos, playCurrentLightboxVideo]);
+
+  if (!portfolio) return <p>Loading...</p>;
+  const itemCount = galleryItems.length;
+  const sliderSettings = {
+    className: "slider variable-width",
+    dots: true,
+    infinite: itemCount > 1,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: itemCount > 1,
+    centerMode: itemCount > 1,
+    centerPadding: "0px",
     nextArrow: <NextArrow />,
-  prevArrow: <PrevArrow />,
-  adaptiveHeight: true,
-};
+    prevArrow: <PrevArrow />,
+    variableWidth: itemCount > 1,
+    lazyLoad: "ondemand",
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          centerMode: itemCount > 1,
+          centerPadding: itemCount > 1 ? "44px" : "0px",
+          variableWidth: false,
+          arrows: false,
+          infinite: itemCount > 1,
+        },
+      },
+    ],
+  };
+  const modalSliderSettings = {
+    initialSlide: activeIndex,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    infinite: itemCount > 1,
+    arrows: itemCount > 1,
+    dots: false,
+    swipe: true,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+    adaptiveHeight: true,
+    lazyLoad: "ondemand",
+    beforeChange: () => pauseLightboxVideos(),
+    afterChange: (current) => {
+      setActiveIndex(current);
+      window.requestAnimationFrame(() => {
+        playCurrentLightboxVideo();
+      });
+    },
+  };
 
   return (
     <section className="content">
@@ -154,27 +272,43 @@ const modalSliderSettings = {
           {portfolio.date && <span className="date">{portfolio.date}</span>}
         </div>
         {/* Portfolio Gallery */}
-        <div className="portfolio-gallery mt-4" style={{padding: "20px" }}>
-          
+        <div
+          ref={galleryContainerRef}
+          className="portfolio-gallery mt-4"
+          style={{padding: "20px" }}
+        >
           <Slider {...sliderSettings}>
             {galleryItems.map((item, idx) => (
               <div key={idx}>
-                <div className="gallery-item-style" onClick={() => openViewer(idx)}>
+                <button
+                  type="button"
+                  className="gallery-item-style gallery-item-trigger"
+                  onClick={() => openViewer(idx)}
+                  aria-label={
+                    item.isVideo
+                      ? `Open reel ${idx + 1} in full view`
+                      : `Open image ${idx + 1} in full view`
+                  }
+                >
                   {item.isVideo ? (
-                    <video
-                      src={item.url}
-                      controls
-                      loop
-                      muted
-                      poster={item.thumbnail}
-                    />
+                    <>
+                      <img
+                        src={item.thumbnail}
+                        alt={`reel-${idx}`}
+                        loading="lazy"
+                      />
+                      <span className="gallery-play-badge" aria-hidden="true">
+                        <i className="bi bi-play-fill"></i>
+                      </span>
+                    </>
                   ) : (
                     <img
                       src={transformMediaUrl(item.url, { height: 600 })}
                       alt={`slide-${idx}`}
+                      loading="lazy"
                     />
                   )}
-                </div>
+                </button>
               </div>
             ))}
           </Slider>
@@ -253,33 +387,48 @@ const modalSliderSettings = {
           View All <i className="icon bi bi-arrow-right-short"></i>
         </a>
       </div>
-{isOpen && (
-  <div className="lightbox-overlay" onClick={closeViewer}>
-    <div
-      className="lightbox-content"
-      onClick={(e) => e.stopPropagation()}
-    >
-      <Slider {...modalSliderSettings}>
-        {galleryItems.map((item, idx) => (
-          <div key={idx} className="lightbox-slide">
-            {item.isVideo ? (
-              <video
-                src={item.url}
-                controls
-                autoPlay
-              />
-            ) : (
-              <img
-                src={item.url}
-                alt={`preview-${idx}`}
-              />
-            )}
+      {isOpen && (
+        <div
+          className="lightbox-overlay"
+          onClick={closeViewer}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${portfolio.title} media viewer`}
+        >
+          <div
+            ref={lightboxContentRef}
+            className="lightbox-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="lightbox-close"
+              onClick={closeViewer}
+              aria-label="Close media viewer"
+            >
+              <i className="bi bi-x-lg"></i>
+            </button>
+            <Slider {...modalSliderSettings}>
+              {galleryItems.map((item, idx) => (
+                <div key={idx} className="lightbox-slide">
+                  {item.isVideo ? (
+                    <video
+                      src={item.url}
+                      controls
+                      autoPlay={idx === activeIndex}
+                      playsInline
+                      poster={item.thumbnail}
+                      onPlay={handleLightboxVideoPlay}
+                    />
+                  ) : (
+                    <img src={item.url} alt={`preview-${idx}`} />
+                  )}
+                </div>
+              ))}
+            </Slider>
           </div>
-        ))}
-      </Slider>
-    </div>
-  </div>
-)}
+        </div>
+      )}
     </section>
   );
 };
