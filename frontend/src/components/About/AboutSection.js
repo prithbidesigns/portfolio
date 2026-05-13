@@ -6,7 +6,7 @@ import Testimonial from '../Testimonial/Testimonial';
 
 const AboutSection = () => {
   return (
-    <section className="services">
+    <section className="services about-section">
       <div className="container">
         {/* About Component */}
         <About />
@@ -20,6 +20,18 @@ const AboutSection = () => {
 
       {/* Testimonial Component */}
       <Testimonial />
+
+      <style>{`
+        .about-section {
+          padding-bottom: 0;
+        }
+
+        @media (max-width: 767px) {
+          .about-section {
+            padding-bottom: 0;
+          }
+        }
+      `}</style>
     </section>
   );
 };

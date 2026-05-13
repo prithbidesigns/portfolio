@@ -27,7 +27,7 @@ const AwardsOne = () => {
     }
 
     return (
-        <section className="awards sticky primary-bg">
+        <section className="awards sticky primary-bg awards-home-section">
             <div className="container">
                 <div className="row justify-content-between">
                     <div className="col-12 col-lg-3">
@@ -90,6 +90,17 @@ const AwardsOne = () => {
                     </div>
                 </div>
             </div>
+            <style>{`
+                .awards-home-section {
+                    padding-top: 40px;
+                }
+
+                @media (max-width: 767px) {
+                    .awards-home-section {
+                        padding-top: 28px;
+                    }
+                }
+            `}</style>
         </section>
     );
 };

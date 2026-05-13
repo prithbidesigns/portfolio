@@ -10,6 +10,45 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+const isVideoMedia = (url = "") =>
+  /\.(mp4|mov|webm|m4v|avi)(\?.*)?$/i.test(url) ||
+  url.includes("/video/upload/") ||
+  url.includes("video");
+
+const normalizeGalleryItems = (gallery = []) => {
+  const seenUrls = new Set();
+
+  return gallery.reduce((items, item) => {
+    const url =
+      typeof item === "string" ? item.trim() : (item?.url || "").trim();
+    const thumbnail =
+      typeof item === "object" && item?.thumbnail
+        ? item.thumbnail.trim()
+        : "";
+
+    if (!url || seenUrls.has(url)) {
+      return items;
+    }
+
+    seenUrls.add(url);
+
+    const isVideo = isVideoMedia(url);
+    const resolvedThumbnail = thumbnail
+      ? transformMediaUrl(thumbnail, { width: 900, height: 1600, crop: true })
+      : isVideo
+        ? getVideoPosterUrl(url, url)
+        : transformMediaUrl(url, { width: 900, height: 1600, crop: true });
+
+    items.push({
+      url,
+      thumbnail: resolvedThumbnail,
+      isVideo,
+    });
+
+    return items;
+  }, []);
+};
+
 const ArrowIcon = ({ direction }) => {
   const isNext = direction === "next";
 
@@ -97,8 +136,12 @@ const PortfolioSingleSection = () => {
   const { projectId } = useParams();
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isMobileViewport, setIsMobileViewport] = useState(false);
+  const [canScrollStaticPrev, setCanScrollStaticPrev] = useState(false);
+  const [canScrollStaticNext, setCanScrollStaticNext] = useState(false);
   const galleryContainerRef = useRef(null);
   const lightboxContentRef = useRef(null);
+  const staticGalleryTrackRef = useRef(null);
 
   const openViewer = (index) => {
     setActiveIndex(index);
@@ -160,6 +203,16 @@ const PortfolioSingleSection = () => {
   }, [projectId]);
 
   useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 768px)");
+    const syncViewport = () => setIsMobileViewport(mediaQuery.matches);
+
+    syncViewport();
+    mediaQuery.addEventListener("change", syncViewport);
+
+    return () => mediaQuery.removeEventListener("change", syncViewport);
+  }, []);
+
+  useEffect(() => {
     if (!isOpen) {
       document.body.style.overflow = "";
       pauseLightboxVideos();
@@ -185,12 +238,41 @@ const PortfolioSingleSection = () => {
   const galleryItems = useMemo(() => {
     if (!portfolio?.gallery || portfolio.gallery.length === 0) return [];
 
-    return portfolio.gallery.map((item) => ({
-      url: item.url,
-      thumbnail: getVideoPosterUrl(item.url, item.thumbnail || item.url),
-      isVideo: item.url.endsWith(".mp4") || item.url.includes("video"),
-    }));
+    return normalizeGalleryItems(portfolio.gallery);
   }, [portfolio]);
+
+  const itemCount = galleryItems.length;
+  const useStaticGalleryLayout = itemCount <= 20;
+  const hasLoopingGallery = itemCount > 20;
+  const useSideBySideStaticLayout =
+    useStaticGalleryLayout &&
+    (itemCount > 3 || (isMobileViewport && itemCount > 1));
+
+  const updateStaticGalleryScrollState = useCallback(() => {
+    const track = staticGalleryTrackRef.current;
+
+    if (!track || !useSideBySideStaticLayout) {
+      setCanScrollStaticPrev(false);
+      setCanScrollStaticNext(false);
+      return;
+    }
+
+    const maxScrollLeft = track.scrollWidth - track.clientWidth;
+    setCanScrollStaticPrev(track.scrollLeft > 8);
+    setCanScrollStaticNext(maxScrollLeft - track.scrollLeft > 8);
+  }, [useSideBySideStaticLayout]);
+
+  const scrollStaticGallery = useCallback((direction) => {
+    const track = staticGalleryTrackRef.current;
+
+    if (!track) return;
+
+    const scrollAmount = Math.max(track.clientWidth * 0.72, 320);
+    track.scrollBy({
+      left: direction === "next" ? scrollAmount : -scrollAmount,
+      behavior: "smooth",
+    });
+  }, []);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -206,20 +288,39 @@ const PortfolioSingleSection = () => {
     return () => window.cancelAnimationFrame(frame);
   }, [activeIndex, galleryItems, isOpen, pauseLightboxVideos, playCurrentLightboxVideo]);
 
+  useEffect(() => {
+    updateStaticGalleryScrollState();
+
+    if (!useSideBySideStaticLayout) return undefined;
+
+    const track = staticGalleryTrackRef.current;
+    if (!track) return undefined;
+
+    const handleScroll = () => updateStaticGalleryScrollState();
+    const handleResize = () => updateStaticGalleryScrollState();
+
+    track.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      track.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [galleryItems, updateStaticGalleryScrollState, useSideBySideStaticLayout]);
+
   if (!portfolio) return <p>Loading...</p>;
-  const itemCount = galleryItems.length;
   const sliderSettings = {
     className: "slider variable-width",
     dots: true,
-    infinite: itemCount > 1,
+    infinite: hasLoopingGallery,
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: itemCount > 1,
-    centerMode: itemCount > 1,
+    centerMode: hasLoopingGallery,
     centerPadding: "0px",
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
-    variableWidth: itemCount > 1,
+    variableWidth: hasLoopingGallery,
     lazyLoad: "ondemand",
     responsive: [
       {
@@ -274,13 +375,45 @@ const PortfolioSingleSection = () => {
         {/* Portfolio Gallery */}
         <div
           ref={galleryContainerRef}
-          className="portfolio-gallery mt-4"
+          className={`portfolio-gallery mt-4${
+            useStaticGalleryLayout ? " portfolio-gallery-static" : ""
+          }`}
           style={{padding: "20px" }}
         >
-          <Slider {...sliderSettings}>
-            {galleryItems.map((item, idx) => (
-              <div key={idx}>
+          {useSideBySideStaticLayout && (
+            <>
+              <button
+                type="button"
+                className="portfolio-gallery-scroll-arrow portfolio-gallery-scroll-arrow-prev"
+                onClick={() => scrollStaticGallery("prev")}
+                aria-label="Scroll gallery left"
+                disabled={!canScrollStaticPrev}
+              >
+                <ArrowIcon direction="prev" />
+              </button>
+              <button
+                type="button"
+                className="portfolio-gallery-scroll-arrow portfolio-gallery-scroll-arrow-next"
+                onClick={() => scrollStaticGallery("next")}
+                aria-label="Scroll gallery right"
+                disabled={!canScrollStaticNext}
+              >
+                <ArrowIcon direction="next" />
+              </button>
+            </>
+          )}
+          {useStaticGalleryLayout ? (
+            <div
+              ref={useSideBySideStaticLayout ? staticGalleryTrackRef : null}
+              className={`portfolio-gallery-static-track${
+                useSideBySideStaticLayout
+                  ? " portfolio-gallery-static-track-scroll"
+                  : ""
+              }`}
+            >
+              {galleryItems.map((item, idx) => (
                 <button
+                  key={idx}
                   type="button"
                   className="gallery-item-style gallery-item-trigger"
                   onClick={() => openViewer(idx)}
@@ -309,9 +442,45 @@ const PortfolioSingleSection = () => {
                     />
                   )}
                 </button>
-              </div>
-            ))}
-          </Slider>
+              ))}
+            </div>
+          ) : (
+            <Slider {...sliderSettings}>
+              {galleryItems.map((item, idx) => (
+                <div key={idx}>
+                  <button
+                    type="button"
+                    className="gallery-item-style gallery-item-trigger"
+                    onClick={() => openViewer(idx)}
+                    aria-label={
+                      item.isVideo
+                        ? `Open reel ${idx + 1} in full view`
+                        : `Open image ${idx + 1} in full view`
+                    }
+                  >
+                    {item.isVideo ? (
+                      <>
+                        <img
+                          src={item.thumbnail}
+                          alt={`reel-${idx}`}
+                          loading="lazy"
+                        />
+                        <span className="gallery-play-badge" aria-hidden="true">
+                          <i className="bi bi-play-fill"></i>
+                        </span>
+                      </>
+                    ) : (
+                      <img
+                        src={transformMediaUrl(item.url, { height: 600 })}
+                        alt={`slide-${idx}`}
+                        loading="lazy"
+                      />
+                    )}
+                  </button>
+                </div>
+              ))}
+            </Slider>
+          )}
         </div>
         {/* ... Portfolio Info section remains unchanged ... */}
         <div className="row justify-content-between">

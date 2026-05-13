@@ -74,19 +74,154 @@ const Header = () => {
      <>
       {/* 🔹 Glass effect CSS (inline at file level) */}
       <style>{`
+        @keyframes headerGlowFlow {
+          0% {
+            background-position: 180% 50%;
+            opacity: 0;
+          }
+          10% {
+            opacity: 1;
+          }
+          90% {
+            opacity: 1;
+          }
+          100% {
+            background-position: -80% 50%;
+            opacity: 0;
+          }
+        }
+
         .header {
+          position: relative;
+          overflow: hidden;
+          isolation: isolate;
           background: rgba(255, 255, 255, 0.15);
           backdrop-filter: blur(10px);
           -webkit-backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.2);
+          border: 1px solid rgba(0, 0, 0, 0.12);
           box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
           border-radius: 12px;
           transition: background 0.3s ease, backdrop-filter 0.3s ease;
         }
 
+        .header > * {
+          position: relative;
+          z-index: 1;
+        }
+
+        .header::before {
+          content: "";
+          position: absolute;
+          inset: -1px;
+          padding: 1.25px;
+          border-radius: inherit;
+          pointer-events: none;
+          background:
+            linear-gradient(
+              105deg,
+              transparent 0%,
+              transparent 26%,
+              rgba(0, 0, 0, 0.06) 32%,
+              rgba(0, 0, 0, 0.14) 40%,
+              rgba(0, 0, 0, 0.78) 47%,
+              rgba(0, 0, 0, 0.92) 50%,
+              rgba(0, 0, 0, 0.78) 53%,
+              rgba(0, 0, 0, 0.14) 60%,
+              rgba(0, 0, 0, 0.06) 68%,
+              transparent 74%,
+              transparent 100%
+            );
+          background-size: 220% 100%;
+          animation: headerGlowFlow 4.8s linear infinite;
+          -webkit-mask:
+            linear-gradient(#000 0 0) content-box,
+            linear-gradient(#000 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          opacity: 1;
+        }
+
+        .header::after {
+          content: "";
+          position: absolute;
+          inset: -10px;
+          border-radius: 18px;
+          pointer-events: none;
+          background:
+            linear-gradient(
+              105deg,
+              transparent 0%,
+              transparent 28%,
+              rgba(0, 0, 0, 0.03) 36%,
+              rgba(0, 0, 0, 0.07) 43%,
+              rgba(0, 0, 0, 0.22) 48%,
+              rgba(0, 0, 0, 0.16) 52%,
+              rgba(0, 0, 0, 0.22) 56%,
+              rgba(0, 0, 0, 0.07) 63%,
+              rgba(0, 0, 0, 0.03) 70%,
+              transparent 78%,
+              transparent 100%
+            );
+          background-size: 220% 100%;
+          animation: headerGlowFlow 4.8s linear infinite;
+          filter: blur(14px);
+          opacity: 0.75;
+          z-index: 0;
+          -webkit-mask:
+            linear-gradient(#000 0 0) padding-box,
+            linear-gradient(#000 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+        }
+
         body.odd .header {
           background: rgba(0, 0, 0, 0.25);
           border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        body.odd .header::before {
+          background:
+            linear-gradient(
+              105deg,
+              transparent 0%,
+              transparent 24%,
+              rgba(255, 255, 255, 0.1) 31%,
+              rgba(255, 255, 255, 0.18) 39%,
+              rgba(255, 255, 255, 0.92) 47%,
+              rgba(255, 255, 255, 1) 50%,
+              rgba(255, 255, 255, 0.92) 53%,
+              rgba(255, 255, 255, 0.18) 61%,
+              rgba(255, 255, 255, 0.1) 69%,
+              transparent 76%,
+              transparent 100%
+            );
+          background-size: 220% 100%;
+        }
+
+        body.odd .header::after {
+          background:
+            linear-gradient(
+              105deg,
+              transparent 0%,
+              transparent 28%,
+              rgba(255, 255, 255, 0.04) 36%,
+              rgba(255, 255, 255, 0.08) 43%,
+              rgba(255, 255, 255, 0.32) 48%,
+              rgba(255, 255, 255, 0.22) 52%,
+              rgba(255, 255, 255, 0.32) 56%,
+              rgba(255, 255, 255, 0.08) 63%,
+              rgba(255, 255, 255, 0.04) 70%,
+              transparent 78%,
+              transparent 100%
+            );
+          background-size: 220% 100%;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .header::before,
+          .header::after {
+            animation: none;
+          }
         }
 
 @media (min-width: 992px) {

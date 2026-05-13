@@ -124,3 +124,9 @@ pointer-events: none;
   position: relative;
   z-index: 1;  /* button stays above background */
 }
+
+@media (max-width: 767px) {
+  .hero-section {
+    padding-bottom: 28px !important;
+  }
+}

@@ -1,6 +1,47 @@
 const express = require("express");
 const Project = require("../models/project"); // Correct path to your Project model
 
+const normalizeGalleryItem = (item) => {
+  if (typeof item === "string") {
+    const url = item.trim();
+    return url ? { url, thumbnail: "" } : null;
+  }
+
+  if (!item || typeof item !== "object") {
+    return null;
+  }
+
+  const url = typeof item.url === "string" ? item.url.trim() : "";
+  const thumbnail =
+    typeof item.thumbnail === "string" ? item.thumbnail.trim() : "";
+
+  if (!url) {
+    return null;
+  }
+
+  return { url, thumbnail };
+};
+
+const normalizeGallery = (gallery) => {
+  if (!Array.isArray(gallery)) {
+    return [];
+  }
+
+  const seenUrls = new Set();
+
+  return gallery.reduce((items, item) => {
+    const normalized = normalizeGalleryItem(item);
+
+    if (!normalized || seenUrls.has(normalized.url)) {
+      return items;
+    }
+
+    seenUrls.add(normalized.url);
+    items.push(normalized);
+    return items;
+  }, []);
+};
+
 // This is how your router module should be structured
 // It exports a function that takes 'authenticateAdmin' as an argument
 module.exports = (authenticateAdmin) => {
@@ -72,11 +113,7 @@ module.exports = (authenticateAdmin) => {
 
       // Normalize gallery items
       if (data.gallery && Array.isArray(data.gallery)) {
-        data.gallery = data.gallery.map((item) => {
-          // If item is string (old format), convert to { url, thumbnail: "" }
-          if (typeof item === "string") return { url: item, thumbnail: "" };
-          return item; // already { url, thumbnail }
-        });
+        data.gallery = normalizeGallery(data.gallery);
       }
 
       const newProject = new Project(data);
@@ -99,10 +136,7 @@ module.exports = (authenticateAdmin) => {
 
       // Normalize gallery items
       if (data.gallery && Array.isArray(data.gallery)) {
-        data.gallery = data.gallery.map((item) => {
-          if (typeof item === "string") return { url: item, thumbnail: "" };
-          return item;
-        });
+        data.gallery = normalizeGallery(data.gallery);
       }
 
       const updated = await Project.findByIdAndUpdate(

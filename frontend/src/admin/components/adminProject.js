@@ -4,6 +4,27 @@ import {
   DeleteButton,
 } from "../../components/Miscellaneous/ManualButtons";
 
+const getGalleryItemUrl = (item) =>
+  typeof item === "string" ? item : item?.url || "";
+
+const getGalleryItemThumbnail = (item) => {
+  if (typeof item === "string") return item;
+  return item?.thumbnail || item?.url || "";
+};
+
+const normalizeGalleryItems = (gallery = []) =>
+  gallery
+    .map((item) => {
+      const url = getGalleryItemUrl(item).trim();
+      if (!url) return null;
+
+      return {
+        url,
+        thumbnail: getGalleryItemThumbnail(item).trim() || url,
+      };
+    })
+    .filter(Boolean);
+
 // ProjectsTab component (no changes needed here for thumbnails directly)
 export const ProjectsTab = ({ projects, onEdit, onDelete, onAddNew }) => (
   <div className="admin_card">
@@ -101,7 +122,7 @@ export const ProjectForm = ({ project, onSave, onCancel, onImageUpload }) => {
         role: Array.isArray(project.role)
           ? project.role.join(", ")
           : project.role || "",
-        gallery: project.gallery || [],
+        gallery: normalizeGalleryItems(project.gallery),
         selected: project.selected || false,
         // --- ADDED: Populate thumbnail from existing project ---
         thumbnail: project.thumbnail || { smallScreen: "", largeScreen: "" },
@@ -201,9 +222,20 @@ export const ProjectForm = ({ project, onSave, onCancel, onImageUpload }) => {
     const newFiles = Array.from(e.target.files);
     if (newFiles.length === 0) return;
 
-    setFilesToUpload((prev) => [...prev, ...newFiles]);
+    const uploadEntries = newFiles.map((file) => {
+      const previewUrl = URL.createObjectURL(file);
+      return { file, previewUrl };
+    });
 
-    const newPreviews = newFiles.map((file) => URL.createObjectURL(file));
+    setFilesToUpload((prev) => [...prev, ...uploadEntries]);
+
+    const newPreviews = uploadEntries.map(({ previewUrl }) => {
+      return {
+        url: previewUrl,
+        thumbnail: previewUrl,
+      };
+    });
+
     setFormData((prev) => ({
       ...prev,
       gallery: [...(prev.gallery || []), ...newPreviews],
@@ -213,11 +245,20 @@ export const ProjectForm = ({ project, onSave, onCancel, onImageUpload }) => {
   const handleRemoveImage = (urlToRemove) => {
     setFormData((prev) => ({
       ...prev,
-      gallery: prev.gallery.filter((item) => item.url !== urlToRemove)
+      gallery: prev.gallery.filter(
+        (item) => getGalleryItemUrl(item) !== urlToRemove
+      )
     }));
-    setFilesToUpload((prev) =>
-      prev.filter((file) => URL.createObjectURL(file) !== urlToRemove)
-    );
+    setFilesToUpload((prev) => {
+      const next = prev.filter(({ previewUrl }) => previewUrl !== urlToRemove);
+      const removedItem = prev.find(({ previewUrl }) => previewUrl === urlToRemove);
+
+      if (removedItem) {
+        URL.revokeObjectURL(removedItem.previewUrl);
+      }
+
+      return next;
+    });
   };
 
 
@@ -226,7 +267,7 @@ export const ProjectForm = ({ project, onSave, onCancel, onImageUpload }) => {
     e.preventDefault();
 
     const uploadedGalleryResults = await Promise.all(
-      filesToUpload.map((file) => onImageUpload(file, "projects/gallery"))
+      filesToUpload.map(({ file }) => onImageUpload(file, "projects/gallery"))
     );
     const uploadedGalleryItems = uploadedGalleryResults.filter(res => res !== null);
 
@@ -257,8 +298,7 @@ export const ProjectForm = ({ project, onSave, onCancel, onImageUpload }) => {
       ...formData,
       gallery: [
         ...formData.gallery.filter(item => {
-          // Handle both string and object cases
-          const url = typeof item === "string" ? item : item.url;
+          const url = getGalleryItemUrl(item);
           return url && !url.startsWith("blob:");
         }),
         ...uploadedGalleryItems, // new uploaded items
@@ -499,12 +539,12 @@ export const ProjectForm = ({ project, onSave, onCancel, onImageUpload }) => {
               formData.gallery.map((item, index) => (
                 <div key={index} className="admin_gallery-item">
                   <img
-                    src={item.thumbnail || item.url} // use saved thumbnail directly
+                    src={getGalleryItemThumbnail(item)}
                     alt={`Preview ${index + 1}`}
                   />
                   <button
                     type="button"
-                    onClick={() => handleRemoveImage(item.url)}
+                    onClick={() => handleRemoveImage(getGalleryItemUrl(item))}
                     className="admin_gallery-remove-btn"
                   >
                     ×

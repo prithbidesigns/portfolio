@@ -130,7 +130,7 @@ const SubscribeFooter = () => {
         }
 
         .input-wrapper {
-          width: fit-content;
+          width: 100%;
           height: 45px;
           border-radius: 20px;
           padding: 5px;
@@ -169,13 +169,16 @@ const SubscribeFooter = () => {
 
         .Subscribe-btn {
           height: 100%;
-          width: 95px;
+          width: 114px;
+          min-width: 114px;
+          padding: 0 8px;
           border: none;
           border-radius: 15px;
           color: rgb(0, 0, 0);
           cursor: pointer;
           background-color: #ffffff;
           font-weight: 500;
+          white-space: nowrap;
           overflow: hidden;
           display: flex;
           align-items: center;
@@ -255,7 +258,8 @@ const SubscribeFooter = () => {
             max-width: 120px;
           }
           .Subscribe-btn {
-            width: 100px;
+            width: 116px;
+            min-width: 116px;
           }
         }
 
@@ -267,7 +271,8 @@ const SubscribeFooter = () => {
             padding-left: 10px;
           }
           .Subscribe-btn {
-            width: 100px;
+            width: 110px;
+            min-width: 110px;
             height: 100%;
             font-size: 0.5em !important;
           }
@@ -289,7 +294,8 @@ const SubscribeFooter = () => {
           .Subscribe-btn {
             font-size: 0.5em !important;
             height: 100%;
-            width: 95px;
+            width: 105px;
+            min-width: 105px;
             border-radius: 12px;
           }
 

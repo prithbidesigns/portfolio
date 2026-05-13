@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { getApiBaseUrl } from '../../utils/apiBaseUrl';
+import { transformMediaUrl } from '../../utils/mediaUrl';
 
 const Clients = () => {
     const [clientLogos, setClientLogos] = useState([]);
@@ -38,7 +39,7 @@ const Clients = () => {
 
     // --- If we have data, render the marquee ---
     return (
-        <div className="marquee">
+        <div className="marquee client-marquee-gap-fix">
             <ul className="list-unstyled">
                 {/* Render original items */}
                 {clientLogos.map((client, index) => (
@@ -51,7 +52,11 @@ const Clients = () => {
                         >
                             <div className="marquee-content">
                                 <img
-                                    src={client.clientImage}
+                                    src={transformMediaUrl(client.clientImage, {
+                                        width: 320,
+                                        quality: 80,
+                                        format: "auto",
+                                    })}
                                     alt={client.name || `Brand ${index + 1}`}
                                 />
                             </div>
@@ -72,7 +77,11 @@ const Clients = () => {
                         >
                             <div className="marquee-content">
                                 <img
-                                    src={client.clientImage}
+                                    src={transformMediaUrl(client.clientImage, {
+                                        width: 320,
+                                        quality: 80,
+                                        format: "auto",
+                                    })}
                                     alt={client.name || `Brand ${index + 1}`}
                                 />
                             </div>
@@ -80,6 +89,30 @@ const Clients = () => {
                     </li>
                 ))}
             </ul>
+            <style>{`
+                .client-marquee-gap-fix {
+                    padding-bottom: 0;
+                }
+
+                .client-marquee-gap-fix ul .item {
+                    height: 140px;
+                }
+
+                .client-marquee-gap-fix ul .item .marquee-item .marquee-content {
+                    width: 140px;
+                    height: 140px;
+                }
+
+                @media (max-width: 575px) {
+                    .client-marquee-gap-fix {
+                        padding-bottom: 0;
+                    }
+
+                    .client-marquee-gap-fix ul .item {
+                        height: 140px;
+                    }
+                }
+            `}</style>
         </div>
     );
 };

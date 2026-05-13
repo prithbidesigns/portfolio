@@ -6,7 +6,7 @@ import { transformMediaUrl } from '../../utils/mediaUrl';
 
 const Footer = ({
   className = "footer-area",
-  copyrightYear = "©2025 ",
+  copyrightYear = "©2023 ",
   linkText = "prithbidesigns",
   linkUrl = "https://prithbidesigns.com/about",
   copyrightText = ", All Rights Reserved.",
@@ -84,13 +84,13 @@ const Footer = ({
                 className="footer-logo-img"
               />
             </div>
-            <p className="mt-3 subscribe-text">Subscribe to our newsletter</p>
+            <p className="mt-3 subscribe-text">Subscribe to my newsletter</p>
             <SubscribeFooter />
           </div>
 
           {/* Part 2: Follow Us */}
-          <div className="col-12 col-md-3 mb-4 mb-md-0 list-unstyled resource-links-list" style={{ paddingLeft: "40px" }}>
-            <h5 className="mb-3">Follow Us</h5>
+          <div className="col-12 col-md-3 mb-4 mb-md-0 list-unstyled resource-links-list footer-follow-column">
+            <h5 className="mb-3">Follow Me</h5>
             <div className="social-links d-flex">
               {dynamicSocialLinks.map((social, index) => (
                 <a
@@ -119,7 +119,7 @@ const Footer = ({
           </div>
 
           {/* Part 3: Quick Links */}
-          <div className="col-12 col-md-3 mb-4 mb-md-0">
+          <div className="col-6 col-md-3 mb-4 mb-md-0 footer-links-column">
             <h5 className="mb-3 list-unstyled resource-links-list">Quick Links</h5>
             <ul className="list-unstyled quick-links-list"> {/* Added quick-links-list */}
               {dynamicMenuItems.map((item, index) => (
@@ -149,7 +149,7 @@ const Footer = ({
           </div>
 
           {/* Part 4: Blogs & Help Resources */}
-          <div className="col-12 col-md-3">
+          <div className="col-6 col-md-3 footer-links-column">
             <h5 className="mb-3 list-unstyled resource-links-list">Resources</h5>
             <ul className="list-unstyled resource-links-list"> {/* Added resource-links-list */}
               {dynamicResourceLinks.map((item, index) => (
@@ -245,13 +245,17 @@ const Footer = ({
         }
         .col-md-3 .subscribe-footer-wrapper-container {
             width: 100%;
-            max-width: 300px;
+            max-width: 330px;
             align-items: flex-start;
             margin-left: 0;
         }
         .col-md-3 .input-wrapper {
             width: 100%;
             max-width: unset;
+        }
+
+        .footer-follow-column {
+            padding-left: 40px;
         }
 
         /* Quick Links and Resources styling */
@@ -346,6 +350,26 @@ const Footer = ({
             padding-left: 0;
           }
 
+          .footer-follow-column {
+            padding-left: 0;
+            align-items: center;
+          }
+
+          .footer-follow-column h5 {
+            text-align: center;
+            width: 100%;
+          }
+
+          .footer-follow-column .social-links {
+            width: 100%;
+            justify-content: center;
+            gap: 18px;
+          }
+
+          .footer-follow-column .social-links a {
+            margin-right: 0 !important;
+          }
+
           /* --- Specific Overrides for Quick Links and Resources to keep them left-aligned --- */
           .quick-links-list,
           .resource-links-list {
@@ -359,6 +383,14 @@ const Footer = ({
           .quick-links-list li,
           .resource-links-list li {
             text-align: left; /* Ensure individual list items are left-aligned */
+          }
+
+          .footer-links-column {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+            margin-bottom: 25px;
           }
 
           /* Make copyright and scroll to top stack vertically and center */
