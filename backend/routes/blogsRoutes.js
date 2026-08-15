@@ -61,6 +61,9 @@ module.exports = (authenticateAdmin) => {
       if (err.name === "CastError") {
         return res.status(400).json({ message: "Invalid Blog ID format." });
       }
+      if (err.name === "ValidationError") {
+        return res.status(400).json({ message: err.message });
+      }
       res
         .status(500)
         .json({ message: "Error updating blog", error: err.message });

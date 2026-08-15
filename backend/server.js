@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const crypto = require("crypto");
 require("dotenv").config();
 
 // Media upload routes
@@ -21,12 +20,10 @@ const affiliatesRoutes = require("./routes/affiliatesRoutes");
 const testimonialsRoutes = require("./routes/testimonialsRoutes");
 const emailRoutes = require("./routes/emailRoutes");
 
-// Generate secure random JWT secret at runtime
-const SECRET_KEY = crypto.randomBytes(64).toString("hex");
-
-// Persistent single-session token state
-let currentToken = null; // Stores the currently valid token for a single active session
-let lastActivityTime = null; // Stores the timestamp of the last activity
+const SECRET_KEY = process.env.JWT_SECRET;
+if (!SECRET_KEY) {
+  throw new Error("JWT_SECRET environment variable is required");
+}
 
 // Init
 const app = express();
@@ -42,7 +39,8 @@ mongoose
   .then(() => console.log("MongoDB connected successfully!"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
-// Middleware to authenticate admin and handle session management
+// Middleware to authenticate admin (stateless JWT — no server-side session store,
+// so it works across restarts, redeploys, and multiple server instances)
 const authenticateAdmin = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
@@ -51,34 +49,10 @@ const authenticateAdmin = (req, res, next) => {
     return res.status(401).json({ message: "Token missing" });
   }
 
-  // 1. Check if the token matches the current server-side token (single session enforcement)
-  if (token !== currentToken) {
-    return res
-      .status(401)
-      .json({ message: "Session expired or invalidated. Please log in again." });
-  }
-
-  // 2. Check for inactivity (e.g., 30 minutes of no requests)
-  const INACTIVITY_LIMIT_MS = 30 * 60 * 1000; // 30 minutes in milliseconds
-  if (
-    lastActivityTime &&
-    Date.now() - lastActivityTime > INACTIVITY_LIMIT_MS
-  ) {
-    // If inactive, invalidate the session on the server
-    currentToken = null;
-    lastActivityTime = null;
-    return res.status(401).json({
-      message: "Session expired due to inactivity. Please log in again.",
-    });
-  }
-
   try {
     jwt.verify(token, SECRET_KEY);
-    lastActivityTime = Date.now();
     next();
   } catch (err) {
-    currentToken = null;
-    lastActivityTime = null;
     return res
       .status(401)
       .json({ message: "Token expired or invalid. Please log in again." });
@@ -98,19 +72,11 @@ app.post("/api/admin/login", async (req, res) => {
   }
 
   const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: "30m" });
-  currentToken = token;
-  lastActivityTime = Date.now();
   return res.status(200).json({ message: "Login successful", token });
 });
 
 app.post("/api/admin/logout", authenticateAdmin, (req, res) => {
-  const authHeader = req.headers["authorization"];
-  const tokenToLogout = authHeader && authHeader.split(" ")[1];
-
-  if (tokenToLogout === currentToken) {
-    currentToken = null;
-    lastActivityTime = null;
-  }
+  // Stateless JWTs can't be revoked server-side; the client discards the token.
   res.status(200).json({ message: "Logged out successfully" });
 });
 
@@ -128,6 +94,17 @@ app.use("/api/uploads", cloudinaryUploadRoutes(authenticateAdmin));
 
 // Public Routes
 app.use("/api/email", emailRoutes());
+
+// 404 handler
+app.use((req, res) => {
+  res.status(404).json({ message: "Not found" });
+});
+
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(err.status || 500).json({ message: "Internal server error" });
+});
 
 // Start Server
 app.listen(PORT, () => {

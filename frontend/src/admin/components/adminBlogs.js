@@ -114,6 +114,9 @@ export const BlogForm = ({ blog, onSave, onCancel, onImageUpload }) => {
           </label>
           {formData.image && (
             <div className='admin_gallery-preview' style={{ marginTop: '0.5rem' }}>
+              <div style={{ marginBottom: '0.5rem' }}>
+                <DeleteButton onClick={() => handleChange('image', '')} />
+              </div>
               <img src={formData.image} alt="preview" style={{ width: '100px' }} />
             </div>
           )}
