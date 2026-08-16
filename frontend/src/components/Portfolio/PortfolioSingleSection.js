@@ -433,6 +433,7 @@ const PortfolioSingleSection = () => {
                         src={item.thumbnail}
                         alt={`reel-${idx}`}
                         loading="lazy"
+                        onLoad={updateStaticGalleryScrollState}
                       />
                       <span className="gallery-play-badge" aria-hidden="true">
                         <i className="bi bi-play-fill"></i>
@@ -444,6 +445,7 @@ const PortfolioSingleSection = () => {
                         src={transformMediaUrl(item.url, { height: 600 })}
                         alt={`slide-${idx}`}
                         loading="lazy"
+                        onLoad={updateStaticGalleryScrollState}
                       />
                       {item.isGif && (
                         <span className="gallery-play-badge" aria-hidden="true">
