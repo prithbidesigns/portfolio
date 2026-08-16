@@ -72,11 +72,23 @@ export const loginRequest = async (username, password) => {
   }
 };
 
-export const fetchData = async (endpoint, token) => {
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+export const fetchData = async (endpoint, token, retriesLeft = 3) => {
   try {
-    const response = await fetch(`${BASE_URL}/${endpoint}`, {
-      headers: { 'Authorization': `Bearer ${token}` }
-    });
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 20000);
+
+    let response;
+    try {
+      response = await fetch(`${BASE_URL}/${endpoint}`, {
+        headers: { 'Authorization': `Bearer ${token}` },
+        signal: controller.signal,
+      });
+    } finally {
+      clearTimeout(timeoutId);
+    }
+
     if (!response.ok) {
       const errData = await parseJsonSafely(response);
       const error = new Error(errData?.message || `Failed to fetch ${endpoint}`);
@@ -88,7 +100,14 @@ export const fetchData = async (endpoint, token) => {
     const data = await response.json();
     return Array.isArray(data) ? data : [data];
   } catch (error) {
-    if (error instanceof TypeError) {
+    // The free backend host can take 30-50s to wake up from idle, so a
+    // cold start looks like a timeout/network error on the first request.
+    const isNetworkError = error instanceof TypeError || error.name === "AbortError";
+    if (isNetworkError && retriesLeft > 0) {
+      await sleep(8000);
+      return fetchData(endpoint, token, retriesLeft - 1);
+    }
+    if (isNetworkError) {
       throw new Error(getNetworkErrorMessage());
     }
     throw error;

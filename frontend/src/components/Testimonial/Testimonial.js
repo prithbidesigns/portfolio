@@ -12,23 +12,34 @@ const Testimonial = () => {
 
   useEffect(() => {
     const baseUrl = getApiBaseUrl();
-    axios
-      .get(`${baseUrl}/testimonials`)
-      .then((response) => {
-        const processedTestimonials = response.data.map(testimonial => {
-          return {
-            ...testimonial,
-            image: testimonial.image || '/img/client-1.jpg'
-          };
+
+    const fetchTestimonials = (retriesLeft) => {
+      axios
+        .get(`${baseUrl}/testimonials`, { timeout: 20000 })
+        .then((response) => {
+          const processedTestimonials = response.data.map(testimonial => {
+            return {
+              ...testimonial,
+              image: testimonial.image || '/img/client-1.jpg'
+            };
+          });
+          setTestimonials(processedTestimonials);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error("Error fetching Testimonials data:", err);
+          // The free backend host can take 30-50s to wake up from idle,
+          // so a cold start looks like a timeout/network error on first load.
+          if (retriesLeft > 0) {
+            setTimeout(() => fetchTestimonials(retriesLeft - 1), 8000);
+          } else {
+            setError("Failed to load Testimonials");
+            setLoading(false);
+          }
         });
-        setTestimonials(processedTestimonials);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Error fetching Testimonials data:", err);
-        setError("Failed to load Testimonials");
-        setLoading(false);
-      });
+    };
+
+    fetchTestimonials(3);
   }, []);
 
   useEffect(() => {
@@ -109,11 +120,7 @@ const Testimonial = () => {
     return <div className="text-center p-3">Loading testimonials...</div>;
   }
 
-  if (error) {
-    return <div className="text-danger p-3">{error}</div>;
-  }
-
-  if (!testimonials || testimonials.length === 0) {
+  if (error || !testimonials || testimonials.length === 0) {
     return null;
   }
 

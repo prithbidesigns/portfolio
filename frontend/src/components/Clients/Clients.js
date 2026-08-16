@@ -10,17 +10,28 @@ const Clients = () => {
 
     useEffect(() => {
         const baseUrl = getApiBaseUrl();
-        axios
-            .get(`${baseUrl}/clients`)
-            .then((response) => {
-                setClientLogos(response.data);
-                setLoading(false);
-            })
-            .catch((err) => {
-                console.error("Error fetching Clients data:", err);
-                setError("Failed to load client logos.");
-                setLoading(false);
-            });
+
+        const fetchClients = (retriesLeft) => {
+            axios
+                .get(`${baseUrl}/clients`, { timeout: 20000 })
+                .then((response) => {
+                    setClientLogos(response.data);
+                    setLoading(false);
+                })
+                .catch((err) => {
+                    console.error("Error fetching Clients data:", err);
+                    // The free backend host can take 30-50s to wake up from idle,
+                    // so a cold start looks like a timeout/network error on first load.
+                    if (retriesLeft > 0) {
+                        setTimeout(() => fetchClients(retriesLeft - 1), 8000);
+                    } else {
+                        setError("Failed to load client logos.");
+                        setLoading(false);
+                    }
+                });
+        };
+
+        fetchClients(3);
     }, []);
 
     // --- Conditional Rendering to turn off the section ---
@@ -28,12 +39,9 @@ const Clients = () => {
         return <div className="text-center p-3">Loading clients...</div>;
     }
 
-    if (error) {
-        return <div className="text-danger p-3">{error}</div>;
-    }
-
-    // If no data, return null to hide the section completely
-    if (!clientLogos || clientLogos.length === 0) {
+    // If loading permanently failed or there's no data, hide the section
+    // rather than showing a visible error to site visitors.
+    if (error || !clientLogos || clientLogos.length === 0) {
         return null;
     }
 
