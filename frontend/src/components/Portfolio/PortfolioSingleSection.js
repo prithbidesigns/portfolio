@@ -15,6 +15,8 @@ const isVideoMedia = (url = "") =>
   url.includes("/video/upload/") ||
   url.includes("video");
 
+const isGifMedia = (url = "") => /\.gif(\?.*)?$/i.test(url);
+
 const normalizeGalleryItems = (gallery = []) => {
   const seenUrls = new Set();
 
@@ -33,6 +35,7 @@ const normalizeGalleryItems = (gallery = []) => {
     seenUrls.add(url);
 
     const isVideo = isVideoMedia(url);
+    const isGif = !isVideo && isGifMedia(url);
     const resolvedThumbnail = thumbnail
       ? transformMediaUrl(thumbnail, { width: 900, height: 1600, crop: true })
       : isVideo
@@ -43,6 +46,7 @@ const normalizeGalleryItems = (gallery = []) => {
       url,
       thumbnail: resolvedThumbnail,
       isVideo,
+      isGif,
     });
 
     return items;
@@ -435,11 +439,18 @@ const PortfolioSingleSection = () => {
                       </span>
                     </>
                   ) : (
-                    <img
-                      src={transformMediaUrl(item.url, { height: 600 })}
-                      alt={`slide-${idx}`}
-                      loading="lazy"
-                    />
+                    <>
+                      <img
+                        src={transformMediaUrl(item.url, { height: 600 })}
+                        alt={`slide-${idx}`}
+                        loading="lazy"
+                      />
+                      {item.isGif && (
+                        <span className="gallery-play-badge" aria-hidden="true">
+                          <i className="bi bi-play-fill"></i>
+                        </span>
+                      )}
+                    </>
                   )}
                 </button>
               ))}
@@ -470,11 +481,18 @@ const PortfolioSingleSection = () => {
                         </span>
                       </>
                     ) : (
-                      <img
-                        src={transformMediaUrl(item.url, { height: 600 })}
-                        alt={`slide-${idx}`}
-                        loading="lazy"
-                      />
+                      <>
+                        <img
+                          src={transformMediaUrl(item.url, { height: 600 })}
+                          alt={`slide-${idx}`}
+                          loading="lazy"
+                        />
+                        {item.isGif && (
+                          <span className="gallery-play-badge" aria-hidden="true">
+                            <i className="bi bi-play-fill"></i>
+                          </span>
+                        )}
+                      </>
                     )}
                   </button>
                 </div>

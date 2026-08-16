@@ -42,6 +42,13 @@ function transformCloudinaryUrl(
 
   const transformations = [];
 
+  // Cloudinary caps the total pixels across all frames of an animated
+  // source (e.g. a GIF) for a single transform request. A resized thumbnail
+  // only needs the first frame, which sidesteps that limit entirely.
+  if (/\.gif(\?|$)/i.test(url)) {
+    transformations.push("pg_1");
+  }
+
   transformations.push(crop ? "c_fill" : "c_fit");
   if (width) transformations.push(`w_${width}`);
   if (height) transformations.push(`h_${height}`);

@@ -50,6 +50,15 @@ const getThumbnailUrl = (uploadResult) => {
       crop: "limit",
       quality: "auto:low",
       fetch_format: "auto",
+      // A base format is required for Cloudinary to resolve the transform
+      // correctly for some source types (e.g. animated GIFs return 400
+      // without one); fetch_format: "auto" still negotiates the best
+      // format per-browser on top of this fallback.
+      format: "jpg",
+      // Cloudinary caps the total pixels across all frames of an animated
+      // source for one transform request; a static thumbnail only needs
+      // the first frame, which sidesteps that limit entirely.
+      ...(uploadResult.format === "gif" ? { page: 1 } : {}),
     });
   }
 
