@@ -14,7 +14,6 @@ const Hero = ({
 }) => {
   const { profile } = useProfile();
   const [introText, setIntroText] = useState("");
-  const [descriptionText, setDescriptionText] = useState("");
 
   const [isLightTheme, setIsLightTheme] = useState(true);
 
@@ -62,14 +61,6 @@ useEffect(() => {
   useEffect(() => {
     if (profile?.name) {
       setIntroText(`${profile?.name || "prithbidesigns"}`);
-    }
-    if (profile?.description) {
-      setDescriptionText(
-        `${
-          profile?.description ||
-          "I transform ideas into impactful digital experiences, delivering innovative solutions that elevate brands and captivate audiences around the world"
-        }`
-      );
     }
   }, [profile]);
   return (
@@ -120,11 +111,24 @@ useEffect(() => {
               </div>
 
               {/* Content */}
-              <div className="content d-flex flex-column flex-md-row justify-content-md-between">
-                <div className="hero-button order-last order-md-first mt-4 mt-md-0">
-                  <MagneticButton href="/contact">{buttonText}</MagneticButton>
+              <div className="content d-flex flex-column flex-md-row hero-cta-row">
+                <div className="hero-button order-last order-md-first mt-4 mt-md-0 hero-button-explore-wrap">
+                  <span className="status-badge status-badge-cta">
+                    <span className="status-badge-dot" />
+                    Currently building AveQue — creative &amp; ad automation
+                  </span>
+                  <MagneticButton
+                    href="https://aveque.io"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hero-button-aveque"
+                  >
+                    Explore aveque.io
+                  </MagneticButton>
                 </div>
-                <p className="sub-title order-first order-md-last">{descriptionText}</p>
+                <div className="hero-button order-first order-md-last hero-button-letstalk-wrap">
+                  <MagneticButton href="mailto:prithbidesigns@gmail.com" className="hero-button-letstalk">{buttonText}</MagneticButton>
+                </div>
               </div>
             </div>
           </div>

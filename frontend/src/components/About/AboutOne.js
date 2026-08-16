@@ -73,18 +73,24 @@ const AboutOne = () => {
         <div className="row">
             <div className="col-12">
                 <div className="content">
-                    <h2 className="title reveal-text mt-0">{data.title}</h2>
+                    <h2 className="title reveal-text mt-0 about-one-title">{data.title}</h2>
                 </div>
                 <div className="wrapper">
-                    <p className="sub-title">{data.subTitle}</p>
+                    <p className="sub-title about-one-subtitle">{data.subTitle}</p>
                     <MagneticButton
                         href={data.buttonLink}
-                        className="btn-outline"
+                        className="btn-outline about-one-button"
                     >
                         {data.buttonText}
                     </MagneticButton>
                 </div>
             </div>
+            <style>{`
+                .btn.magnetic-button.about-one-button {
+                    padding: 1.12rem 2.45rem !important;
+                    font-size: 0.84rem !important;
+                }
+            `}</style>
         </div>
     );
 };
