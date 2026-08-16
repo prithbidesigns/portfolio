@@ -290,17 +290,26 @@ export const ProjectForm = ({ project, onSave, onCancel, onImageUpload }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    try {
     const uploadedGalleryResults = await Promise.all(
       filesToUpload.map(({ file }) => onImageUpload(file, "projects/gallery"))
     );
     const uploadedGalleryItems = uploadedGalleryResults.filter(res => res !== null);
 
     // --- ADDED: Upload thumbnail images ---
+    // A blob: URL is only a local in-browser preview reference — it must never
+    // be saved to the database. If an upload fails, fall back to whatever
+    // thumbnail the project already had (or blank for a new project) and
+    // abort the save with a visible error instead of silently persisting
+    // a broken blob URL.
     let smallScreenThumbnailUrl = formData.thumbnail.smallScreen;
     if (smallScreenThumbnailFile) {
       const uploadData = await onImageUpload(smallScreenThumbnailFile, "projects/thumbnails"); // Subfolder for thumbnails
-      if (uploadData) smallScreenThumbnailUrl = uploadData.url;
-      else console.error("Small screen thumbnail failed to upload.");
+      if (uploadData) {
+        smallScreenThumbnailUrl = uploadData.url;
+      } else {
+        throw new Error("Small screen thumbnail failed to upload. Project was not saved — please try again.");
+      }
     } else if (formData.thumbnail.smallScreen.startsWith("blob:")) {
       // If it was a preview but no file was uploaded (meaning it was removed)
       smallScreenThumbnailUrl = "";
@@ -309,8 +318,11 @@ export const ProjectForm = ({ project, onSave, onCancel, onImageUpload }) => {
     let largeScreenThumbnailUrl = formData.thumbnail.largeScreen;
     if (largeScreenThumbnailFile) {
       const uploadData = await onImageUpload(largeScreenThumbnailFile, "projects/thumbnails");
-      if (uploadData) largeScreenThumbnailUrl = uploadData.url;
-      else console.error("Large screen thumbnail failed to upload.");
+      if (uploadData) {
+        largeScreenThumbnailUrl = uploadData.url;
+      } else {
+        throw new Error("Large screen thumbnail failed to upload. Project was not saved — please try again.");
+      }
     } else if (formData.thumbnail.largeScreen.startsWith("blob:")) {
         // If it was a preview but no file was uploaded (meaning it was removed)
       largeScreenThumbnailUrl = "";
@@ -345,6 +357,9 @@ export const ProjectForm = ({ project, onSave, onCancel, onImageUpload }) => {
     const success = await onSave(dataToSave, projectId);
     if (success) {
       onCancel();
+    }
+    } catch (error) {
+      window.alert(error.message);
     }
   };
 
