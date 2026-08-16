@@ -2,14 +2,12 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useProfile } from '../../context/profileContext';
 import Preloader from '../Miscellaneous/Preloader';
-import { transformMediaUrl } from '../../utils/mediaUrl';
 
 const BreadcrumbOne = () => {
   const { profile, loading } = useProfile();
   const [breadcrumbContent, setBreadcrumbContent] = useState({
     title: "Crafting",
     subtitle: "I transform ideas into impactful digital experiences, delivering innovative solutions that elevate brands and captivate audiences around the world.",
-    imageSrc: "/img/photographer.jpg",
     subheading: "timeless stories."
   })
   useEffect(() => {
@@ -17,7 +15,6 @@ const BreadcrumbOne = () => {
       setBreadcrumbContent({
         title: profile?.breadcrumb?.[0]?.title || "Crafting",
         subtitle: profile?.breadcrumb?.[0]?.subtitle || "I transform ideas into impactful digital experiences, delivering innovative solutions that elevate brands and captivate audiences around the world.",
-        imageSrc: profile?.profileImage || "/img/photographer.jpg",
         subheading: profile?.breadcrumb?.[0]?.subheading || "timeless stories."
       });
     }
@@ -34,7 +31,7 @@ const BreadcrumbOne = () => {
             <div className="content d-flex flex-column justify-content-between">
               <div className="heading w-60">
                 <h1 className="title">
-                  {breadcrumbContent.title} <img src={transformMediaUrl(breadcrumbContent.imageSrc, {width: 800, crop: true, quality: 80, format: "auto"})} alt="Photographer" />
+                  {breadcrumbContent.title}
                 </h1>
                 <div className="flex ms-auto">
                   <span className="line animate-line my-3 my-md-0"></span>

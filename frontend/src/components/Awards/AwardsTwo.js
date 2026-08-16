@@ -50,10 +50,9 @@ const AwardsTwo = () => {
                     {awardsData.map((award, index) => (
                         <div className="col-12 col-md-6 item" key={award.id || index}> {/* Use a unique ID from award.id or fallback to index */}
                             <div className="content">
-                                <a className="logo" href={award.link} target="_blank" rel="noopener noreferrer"> {/* Added target and rel for external links */}
-                                    <img src={award.image} alt={award.title || `Award ${index + 1}`}  style={{width: '70px'}} /> {/* Use award.title for alt text, fallback to generic */}
+                                <a href={award.link} target="_blank" rel="noopener noreferrer">
+                                    <h6 style={{ color: "#3b82f6" }}>{award.title}</h6>
                                 </a>
-                                <h6>{award.title}</h6>
                                 <p>{award.description}</p>
                             </div>
                         </div>

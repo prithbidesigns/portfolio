@@ -84,8 +84,9 @@
   flex-wrap: nowrap;
   overflow-x: auto;
   overflow-y: hidden;
-  padding-inline: 56px;
+  padding-inline: 90px;
   padding-bottom: 0;
+  scroll-padding-inline: 90px;
   scroll-snap-type: x proximity;
   scrollbar-width: none;
   -ms-overflow-style: none;

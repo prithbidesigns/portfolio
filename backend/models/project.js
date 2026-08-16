@@ -31,6 +31,8 @@ const projectSchema = new mongoose.Schema(
     },
 
     selected: { type: Boolean, default: false },
+    visible: { type: Boolean, default: true },
+    order: { type: Number, default: 0 },
   },
   { timestamps: true }
 );

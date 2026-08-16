@@ -28,7 +28,7 @@ useEffect(() => {
     axios
       .get(`${baseUrl}/projects`)
       .then((response) => {
-        setportfolioData(response.data.reverse());
+        setportfolioData(response.data.filter((item) => item.visible !== false));
       })
       .catch((error) => console.error("Error fetching portfolio data:", error));
   }, []);

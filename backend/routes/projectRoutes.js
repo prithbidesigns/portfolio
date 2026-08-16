@@ -61,7 +61,7 @@ module.exports = (authenticateAdmin) => {
 
         // 1. Fetch "selected" projects first (up to the desiredLimit)
         const selectedProjects = await Project.find({ selected: true })
-          .sort({ createdAt: -1 }) // Sort selected by most recent if you have more than 'desiredLimit' selected
+          .sort({ order: 1, createdAt: -1 }) // Respect admin-defined order, most recent as tiebreaker
           .limit(desiredLimit);
 
         tempProjects = selectedProjects;
@@ -73,7 +73,7 @@ module.exports = (authenticateAdmin) => {
           const recentProjects = await Project.find({
             _id: { $nin: tempProjects.map((p) => p._id) }, // Exclude projects already in 'tempProjects' array
           })
-            .sort({ createdAt: -1 }) // Sort by most recent
+            .sort({ order: 1, createdAt: -1 }) // Respect admin-defined order, most recent as tiebreaker
             .limit(remainingToFetch); // Fetch only the number needed to reach 'desiredLimit'
 
           tempProjects = [...tempProjects, ...recentProjects];
@@ -81,7 +81,7 @@ module.exports = (authenticateAdmin) => {
         projects = tempProjects; // Assign the result to 'projects'
       } else {
         // --- If NO valid limit is provided, fetch ALL projects ---
-        projects = await Project.find({});
+        projects = await Project.find({}).sort({ order: 1, createdAt: -1 });
       }
 
       res.status(200).json(projects);

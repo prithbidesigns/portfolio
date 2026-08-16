@@ -13,7 +13,9 @@ const PortfolioOne = () => {
     // Fetch only the first 4 portfolio items
     axios
       .get(`${baseUrl}/projects?limit=5`) // _limit=4 limits the results to 4 items
-      .then((response) => setPortfolioItems(response.data))
+      .then((response) =>
+        setPortfolioItems(response.data.filter((item) => item.visible !== false))
+      )
       .catch((error) => console.error("Error fetching portfolio data:", error));
   }, []);
 const getPortfolioLink = (item) => {

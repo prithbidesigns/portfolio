@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import {
   EditButton,
   DeleteButton,
+  VisibilityButton,
+  MoveButton,
 } from "../../components/Miscellaneous/ManualButtons";
 
 const getGalleryItemUrl = (item) =>
@@ -26,7 +28,7 @@ const normalizeGalleryItems = (gallery = []) =>
     .filter(Boolean);
 
 // ProjectsTab component (no changes needed here for thumbnails directly)
-export const ProjectsTab = ({ projects, onEdit, onDelete, onAddNew }) => (
+export const ProjectsTab = ({ projects, onEdit, onDelete, onAddNew, onToggleVisible, onMove }) => (
   <div className="admin_card">
     <div className="admin_card-header">
       <h2 className="admin_card-title">Projects</h2>
@@ -34,21 +36,38 @@ export const ProjectsTab = ({ projects, onEdit, onDelete, onAddNew }) => (
         Add New Project
       </button>
     </div>
+    <p className="text-muted" style={{ marginTop: 0 }}>
+      Use the arrows to control the order projects appear in on the site (top row shows first).
+    </p>
     <div className="admin_table-wrapper">
       <table className="admin_table">
         <thead>
           <tr>
+            <th>Order</th>
             <th>Title</th>
             <th>Categories</th>
             <th>Date</th>
             <th>Selected</th>
+            <th>Visible</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {projects && projects.length > 0 ? (
-            projects.map((p) => (
+            projects.map((p, index) => (
               <tr key={p._id}>
+                <td className="admin_table-actions">
+                  <MoveButton
+                    direction="up"
+                    disabled={index === 0}
+                    onClick={() => onMove(index, "up")}
+                  />
+                  <MoveButton
+                    direction="down"
+                    disabled={index === projects.length - 1}
+                    onClick={() => onMove(index, "down")}
+                  />
+                </td>
                 <td>{p.title}</td>
                 <td>
                   {Array.isArray(p.categories)
@@ -57,7 +76,12 @@ export const ProjectsTab = ({ projects, onEdit, onDelete, onAddNew }) => (
                 </td>
                 <td>{p.date}</td>
                 <td>{p.selected ? "Yes" : "No"}</td>
+                <td>{p.visible === false ? "No" : "Yes"}</td>
                 <td className="admin_table-actions">
+                  <VisibilityButton
+                    visible={p.visible !== false}
+                    onClick={() => onToggleVisible(p)}
+                  />
                   <EditButton onClick={() => onEdit(p)} />
                   <DeleteButton onClick={() => onDelete(p._id)} />
                 </td>
@@ -65,7 +89,7 @@ export const ProjectsTab = ({ projects, onEdit, onDelete, onAddNew }) => (
             ))
           ) : (
             <tr>
-              <td colSpan="5" style={{ textAlign: "center" }}>
+              <td colSpan="7" style={{ textAlign: "center" }}>
                 No projects yet.
               </td>
             </tr>

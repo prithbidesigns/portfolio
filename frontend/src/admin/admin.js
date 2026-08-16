@@ -459,6 +459,31 @@ const Admin = () => {
     }
   };
 
+  const handleToggleProjectVisible = async (project) => {
+    try {
+      await saveData("projects", { visible: project.visible === false }, token, project._id);
+      getProjects();
+    } catch (error) {
+      setMessage(`Error updating project visibility: ${error.message}`);
+    }
+  };
+
+  const handleMoveProject = async (index, direction) => {
+    const targetIndex = direction === "up" ? index - 1 : index + 1;
+    if (targetIndex < 0 || targetIndex >= projects.length) return;
+
+    const current = projects[index];
+    const target = projects[targetIndex];
+
+    try {
+      await saveData("projects", { order: targetIndex }, token, current._id);
+      await saveData("projects", { order: index }, token, target._id);
+      getProjects();
+    } catch (error) {
+      setMessage(`Error reordering projects: ${error.message}`);
+    }
+  };
+
   // UPDATED: handleDeleteSkill - remains granular for specific deletes
   const handleDeleteSkill = async (skillDocId, type, nestedIds = {}) => {
     try {
@@ -794,6 +819,8 @@ const Admin = () => {
               setView("editProject");
             }}
             onDelete={handleDeleteProject}
+            onToggleVisible={handleToggleProjectVisible}
+            onMove={handleMoveProject}
             onAddNew={() => {
               setEditingProject(null);
               setView("addProject");
