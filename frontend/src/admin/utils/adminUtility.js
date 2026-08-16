@@ -47,7 +47,7 @@ export const handleFileUpload = async (file, folder, retriesLeft = 2) => {
 
     const result = await response.json();
     if (!response.ok) {
-      throw new Error(result.message || "Backend upload failed");
+      throw new Error(result.error || result.message || "Backend upload failed");
     }
 
     return {
