@@ -10,13 +10,24 @@ const PortfolioOne = () => {
 
   useEffect(() => {
     const baseUrl = getApiBaseUrl();
-    // Fetch only the first 4 portfolio items
-    axios
-      .get(`${baseUrl}/projects?limit=5`) // _limit=4 limits the results to 4 items
-      .then((response) =>
-        setPortfolioItems(response.data.filter((item) => item.visible !== false))
-      )
-      .catch((error) => console.error("Error fetching portfolio data:", error));
+
+    const fetchPortfolio = (retriesLeft) => {
+      axios
+        .get(`${baseUrl}/projects?limit=5`, { timeout: 20000 })
+        .then((response) =>
+          setPortfolioItems(response.data.filter((item) => item.visible !== false))
+        )
+        .catch((error) => {
+          console.error("Error fetching portfolio data:", error);
+          // The free backend host can take 30-50s to wake up from idle,
+          // so a cold start looks like a timeout/network error on first load.
+          if (retriesLeft > 0) {
+            setTimeout(() => fetchPortfolio(retriesLeft - 1), 8000);
+          }
+        });
+    };
+
+    fetchPortfolio(3);
   }, []);
 const getPortfolioLink = (item) => {
   const specialCategories = ["Web/Game-Development", "UI/UX-Design"];

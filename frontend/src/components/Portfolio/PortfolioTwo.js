@@ -25,12 +25,24 @@ useEffect(() => {
 
   useEffect(() => {
     const baseUrl = getApiBaseUrl();
-    axios
-      .get(`${baseUrl}/projects`)
-      .then((response) => {
-        setportfolioData(response.data.filter((item) => item.visible !== false));
-      })
-      .catch((error) => console.error("Error fetching portfolio data:", error));
+
+    const fetchPortfolio = (retriesLeft) => {
+      axios
+        .get(`${baseUrl}/projects`, { timeout: 20000 })
+        .then((response) => {
+          setportfolioData(response.data.filter((item) => item.visible !== false));
+        })
+        .catch((error) => {
+          console.error("Error fetching portfolio data:", error);
+          // The free backend host can take 30-50s to wake up from idle,
+          // so a cold start looks like a timeout/network error on first load.
+          if (retriesLeft > 0) {
+            setTimeout(() => fetchPortfolio(retriesLeft - 1), 8000);
+          }
+        });
+    };
+
+    fetchPortfolio(3);
   }, []);
 
   const categories = [
