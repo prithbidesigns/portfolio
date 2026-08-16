@@ -42,6 +42,32 @@ const normalizeGallery = (gallery) => {
   }, []);
 };
 
+// A blob: URL is a temporary in-browser reference that only resolves in the
+// tab that created it — it must never be persisted. Reject any save that
+// contains one, regardless of how it slipped past the frontend's own checks.
+const hasBlobUrl = (data) => {
+  const thumbnail = data.thumbnail || {};
+  if (
+    (typeof thumbnail.smallScreen === "string" && thumbnail.smallScreen.startsWith("blob:")) ||
+    (typeof thumbnail.largeScreen === "string" && thumbnail.largeScreen.startsWith("blob:"))
+  ) {
+    return true;
+  }
+
+  if (Array.isArray(data.gallery)) {
+    return data.gallery.some((item) => {
+      const url = typeof item === "string" ? item : item?.url;
+      const thumb = typeof item === "object" ? item?.thumbnail : "";
+      return (
+        (typeof url === "string" && url.startsWith("blob:")) ||
+        (typeof thumb === "string" && thumb.startsWith("blob:"))
+      );
+    });
+  }
+
+  return false;
+};
+
 // This is how your router module should be structured
 // It exports a function that takes 'authenticateAdmin' as an argument
 module.exports = (authenticateAdmin) => {
@@ -111,6 +137,10 @@ module.exports = (authenticateAdmin) => {
     try {
       const data = req.body;
 
+      if (hasBlobUrl(data)) {
+        return res.status(400).json({ message: "Thumbnail or gallery upload did not complete — please try again." });
+      }
+
       // Normalize gallery items
       if (data.gallery && Array.isArray(data.gallery)) {
         data.gallery = normalizeGallery(data.gallery);
@@ -133,6 +163,10 @@ module.exports = (authenticateAdmin) => {
   router.put("/:_id", authenticateAdmin, async (req, res) => {
     try {
       const data = req.body;
+
+      if (hasBlobUrl(data)) {
+        return res.status(400).json({ message: "Thumbnail or gallery upload did not complete — please try again." });
+      }
 
       // Normalize gallery items
       if (data.gallery && Array.isArray(data.gallery)) {

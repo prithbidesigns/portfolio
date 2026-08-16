@@ -353,6 +353,16 @@ export const ProjectForm = ({ project, onSave, onCancel, onImageUpload }) => {
 
     const projectId = project?._id;
 
+    // Final safety net: never let a blob: URL (a local-only preview
+    // reference) reach the database, no matter how it got here.
+    if (
+      dataToSave.thumbnail.smallScreen.startsWith("blob:") ||
+      dataToSave.thumbnail.largeScreen.startsWith("blob:") ||
+      dataToSave.gallery.some((item) => getGalleryItemUrl(item).startsWith("blob:"))
+    ) {
+      throw new Error("A thumbnail or gallery image is still a temporary preview (upload didn't complete). Project was not saved — please try uploading it again.");
+    }
+
     // Assuming onSave handles the API call to your backend
     const success = await onSave(dataToSave, projectId);
     if (success) {

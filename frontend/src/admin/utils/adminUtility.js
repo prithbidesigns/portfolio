@@ -18,7 +18,7 @@ const parseJsonSafely = async (response) => {
 const getNetworkErrorMessage = () =>
   `Cannot reach the API at ${BASE_URL}. Make sure the backend server is running and restart the frontend after env changes.`;
 
-export const handleFileUpload = async (file, folder) => {
+export const handleFileUpload = async (file, folder, retriesLeft = 2) => {
   try {
     const uploadUrl = `${BASE_URL}/uploads/upload`;
 
@@ -38,6 +38,13 @@ export const handleFileUpload = async (file, folder) => {
       },
     });
 
+    // The free backend host can take 30-50s to wake up from idle — a cold
+    // start while it's mid-boot can surface as a gateway error here.
+    if (!response.ok && [502, 503, 504].includes(response.status) && retriesLeft > 0) {
+      await new Promise((resolve) => setTimeout(resolve, 8000));
+      return handleFileUpload(file, folder, retriesLeft - 1);
+    }
+
     const result = await response.json();
     if (!response.ok) {
       throw new Error(result.message || "Backend upload failed");
@@ -48,6 +55,10 @@ export const handleFileUpload = async (file, folder) => {
       thumbnail: result.thumbnail,
     };
   } catch (error) {
+    if (error instanceof TypeError && retriesLeft > 0) {
+      await new Promise((resolve) => setTimeout(resolve, 8000));
+      return handleFileUpload(file, folder, retriesLeft - 1);
+    }
     console.error("Upload error:", error);
     throw error;
   }
