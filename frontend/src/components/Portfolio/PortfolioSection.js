@@ -40,6 +40,12 @@ const PortfolioSection = ({ title = "Selected Works", viewAllLink = "/portfolio"
           }
         }
 
+        @media (max-width: 400px) {
+          .portfolio-section-intro .title {
+            font-size: 1.6rem;
+          }
+        }
+
         @keyframes portfolioViewAllGlowPulse {
           0%,
           100% {
