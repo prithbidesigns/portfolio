@@ -112,7 +112,7 @@ useEffect(() => {
 
               {/* Content */}
               <div className="content d-flex flex-column flex-md-row hero-cta-row">
-                <div className="hero-button order-last order-md-first mt-4 mt-md-0 hero-button-explore-wrap">
+                <div className="hero-button hero-button-explore-wrap">
                   <span className="status-badge status-badge-cta">
                     <span className="status-badge-dot" />
                     Currently building AveQue — creative &amp; ad automation
@@ -126,7 +126,7 @@ useEffect(() => {
                     Explore aveque.io
                   </MagneticButton>
                 </div>
-                <div className="hero-button order-first order-md-last hero-button-letstalk-wrap">
+                <div className="hero-button hero-button-letstalk-wrap">
                   <MagneticButton href="mailto:prithbidesigns@gmail.com" className="hero-button-letstalk">{buttonText}</MagneticButton>
                 </div>
               </div>

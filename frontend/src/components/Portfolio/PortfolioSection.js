@@ -8,10 +8,10 @@ const PortfolioSection = ({ title = "Selected Works", viewAllLink = "/portfolio"
         <div className="row">
           <div className="col-12">
             {/* Intro */}
-            <div className="intro d-flex justify-content-between align-items-center">
+            <div className="intro d-flex justify-content-between align-items-center portfolio-section-intro">
               <h3 className="title">{title}</h3>
               <a
-                className="btn btn-outline content-btn swap-icon portfolio-view-all-glow"
+                className="btn btn-outline content-btn swap-icon portfolio-view-all-glow portfolio-view-all-btn"
                 href={viewAllLink}
               >
                 View All <i className="icon bi bi-arrow-right-short"></i>
@@ -23,6 +23,23 @@ const PortfolioSection = ({ title = "Selected Works", viewAllLink = "/portfolio"
         <PortfolioOne />
       </div>
       <style>{`
+        .portfolio-section-intro {
+          flex-wrap: nowrap !important;
+        }
+
+        .portfolio-view-all-btn {
+          padding: 1.12rem 2.45rem !important;
+          font-size: 0.84rem !important;
+          flex-shrink: 0;
+        }
+
+        @media (max-width: 575px) {
+          .portfolio-view-all-btn {
+            padding: 0.75rem 1.5rem !important;
+            font-size: 0.75rem !important;
+          }
+        }
+
         @keyframes portfolioViewAllGlowPulse {
           0%,
           100% {
