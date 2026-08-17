@@ -446,6 +446,12 @@ const PortfolioSingleSection = () => {
                         alt={`slide-${idx}`}
                         loading="lazy"
                         onLoad={updateStaticGalleryScrollState}
+                        onError={(e) => {
+                          const fallback = transformMediaUrl(item.url, { height: 600, page: 1 });
+                          if (e.target.src !== fallback) {
+                            e.target.src = fallback;
+                          }
+                        }}
                       />
                       {item.isGif && (
                         <span className="gallery-play-badge" aria-hidden="true">
@@ -488,6 +494,12 @@ const PortfolioSingleSection = () => {
                           src={transformMediaUrl(item.url, { height: 600 })}
                           alt={`slide-${idx}`}
                           loading="lazy"
+                          onError={(e) => {
+                            const fallback = transformMediaUrl(item.url, { height: 600, page: 1 });
+                            if (e.target.src !== fallback) {
+                              e.target.src = fallback;
+                            }
+                          }}
                         />
                         {item.isGif && (
                           <span className="gallery-play-badge" aria-hidden="true">

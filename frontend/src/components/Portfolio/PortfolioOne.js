@@ -137,6 +137,20 @@ const getPortfolioLink = (item) => {
                           alt={item.title}
                           width="100%"
                           height="100%"
+                          onError={(e) => {
+                            // An animated GIF thumbnail can exceed Cloudinary's
+                            // per-request pixel budget across all its frames —
+                            // retry as a static first frame instead of showing
+                            // a broken image.
+                            const failedSrc = e.target.src;
+                            if (
+                              failedSrc.includes("res.cloudinary.com") &&
+                              failedSrc.includes("/upload/") &&
+                              !failedSrc.includes("pg_1")
+                            ) {
+                              e.target.src = failedSrc.replace("/upload/", "/upload/pg_1,");
+                            }
+                          }}
                         />
                       </picture>
                     );
